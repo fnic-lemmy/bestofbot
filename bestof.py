@@ -91,22 +91,23 @@ def run(user, pw, instance, postcomm, cfg, post_title):
       for sorttype in [SortType.TopMonth, SortType.TopYear, SortType.TopAll]:
         try:
           posts = lemmy.post.list(community_id = community_id, limit = 5, sort = sorttype)
-          if (len(posts) > 0):
-            for p in posts:
-              if('url' in p['post']):
-                toppost.append(0)
-                toppost[topposts] = {}
-                toppost[topposts]['post'] = p['post']
-                toppost[topposts]['score'] = p['counts']['score']
-                toppost[topposts]['community'] = comm
-                toppost[topposts]['author'] = p['creator']
-                topposts += 1
-
-                found = True
-
-                break
         except Exception as e:
           print(f'cannot get posts in {comm}: {e}\n')
+
+        if (len(posts) > 0):
+          for p in posts:
+            if('url' in p['post']):
+              toppost.append(0)
+              toppost[topposts] = {}
+              toppost[topposts]['post'] = p['post']
+              toppost[topposts]['score'] = p['counts']['score']
+              toppost[topposts]['community'] = comm
+              toppost[topposts]['author'] = p['creator']
+              topposts += 1
+
+              found = True
+
+              break
 
         if found is True:
           break
