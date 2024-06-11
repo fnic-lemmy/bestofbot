@@ -11,16 +11,17 @@ BOTPW = os.getenv("BOTPW", 0)
 BOTINSTANCE = os.getenv("BOTINSTANCE", 0)
 POSTCOMMUNITY = os.getenv("COMMUNITY", 0)
 COMMUNITIES = os.getenv("COMMLIST", 0)
+TITLE = os.getenv("POSTTITLE", 0)
 
-def main(user, pw, inst, comm, cfg):
+def main(user, pw, inst, comm, cfg, title):
 
-    bestof.run(user, pw, inst, comm, cfg)
+    bestof.run(user, pw, inst, comm, cfg, title)
     return "imaginarybot"
 
 # Start script
 if __name__ == "__main__":
     try:
-        main(BOTUSER, BOTPW, BOTINSTANCE, POSTCOMMUNITY, COMMUNITIES)
+        main(BOTUSER, BOTPW, BOTINSTANCE, POSTCOMMUNITY, COMMUNITIES, TITLE)
     except Exception as err:
         message = (
             f"Task #{TASK_INDEX}, " + f"Attempt #{TASK_ATTEMPT} failed: {str(err)}"

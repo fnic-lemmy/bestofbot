@@ -21,7 +21,7 @@ def get_commlist(cfg):
     print("error reading config file: {e}")
     return None
 
-def run(user,pw,instance,postcomm,cfg):
+def run(user, pw, instance, postcomm, cfg, post_title):
   topposts = 0
   toppost = []
 
@@ -141,7 +141,7 @@ def run(user,pw,instance,postcomm,cfg):
   if community_id is not None:
     '''post'''
     try:
-      post = lemmy.post.create(community_id, "test please ignore", url=toppost[0]['post']['url'], body=posttext)
+      post = lemmy.post.create(community_id, post_title, url=toppost[0]['post']['url'], body=posttext)
     except Exception as e:
       print(f'cannot post, exception = {e}\n')
       sys.exit(0) # say we succeeded as it tends to fail but post anyway
