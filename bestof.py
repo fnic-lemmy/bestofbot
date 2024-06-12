@@ -118,15 +118,16 @@ def run(user, pw, instance, postcomm, cfg, post_title):
   for p in toppost:
     n += 1
     # check if this is a random inactive community
+    lemmyverselink = "https://lemmyverse.link/" + p['post']['ap_id'][8:]
     if (n < len(toppost)) or (found is False):
-      posttext = posttext + f"## {n}. [{p['post']['name']}]({p['post']['ap_id']})\n\n!{p['community']} ({p['score']})\n\n" 
+      posttext = posttext + f"## {n}. [{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']}))\n\n!{p['community']} ({p['score']})\n\n" 
     else:
-        posttext = posttext + f'\n----\n## Inactive communities\n\nThese communities have had no posts in the last week:\n\n'
-        for c in nopostsc:
-          posttext = posttext + f'* !{c}\n'
+      posttext = posttext + f'\n----\n## Inactive communities\n\nThese communities have had no posts in the last week:\n\n'
+      for c in nopostsc:
+        posttext = posttext + f'* !{c}\n'
 
-        posttext = posttext + "\n\nHere is a popular post from one of the above communities.\n\n"
-        posttext = posttext + f"[{p['post']['name']}]({p['post']['ap_id']}), posted in !{p['community']} ({p['score']})\n\n"
+      posttext = posttext + "\n\nHere is a popular post from one of the above communities.\n\n"
+      posttext = posttext + f"[{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']})), posted in !{p['community']} ({p['score']})\n\n"
       
     posttext = posttext + f"![]({p['post']['url']})\n\n"
     posttext = posttext + f"Posted by [{p['author']['name']}]({p['author']['actor_id']})\n\n"
