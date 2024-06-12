@@ -126,7 +126,7 @@ def run(user, pw, instance, postcomm, cfg, post_title):
     # check if this is a random inactive community
     lemmyverselink = "https://lemmyverse.link/" + p['post']['ap_id'][8:]
     if (n < len(toppost)) or (found is False):
-      shield = gen_shield(p['community']))
+      shield = gen_shield(p['community'])
       posttext = posttext + f"## {n}. [{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']})) ({p['score']})\n\n!{p['community']} {shield}\n\n" 
     else:
       posttext = posttext + f'\n----\n## Inactive communities 👻\n\nThese communities have had no posts in the last week:\n\n'
