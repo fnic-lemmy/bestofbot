@@ -122,9 +122,9 @@ def run(user, pw, instance, postcomm, cfg, post_title):
     if (n < len(toppost)) or (found is False):
       posttext = posttext + f"## {n}. [{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']}))\n\n!{p['community']} ({p['score']})\n\n" 
     else:
-      posttext = posttext + f'\n----\n## Inactive communities\n\nThese communities have had no posts in the last week:\n\n'
+      posttext = posttext + f'\n----\n## Inactive communities 👻\n\nThese communities have had no posts in the last week:\n\n'
       for c in nopostsc:
-        posttext = posttext + f'* !{c}\n'
+        posttext = posttext + f'* !{c}\n\n'
 
       posttext = posttext + "\n\nHere is a popular post from one of the above communities.\n\n"
       posttext = posttext + f"[{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']})), posted in !{p['community']} ({p['score']})\n\n"
