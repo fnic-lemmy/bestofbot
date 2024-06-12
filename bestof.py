@@ -126,7 +126,7 @@ def run(user, pw, instance, postcomm, cfg, post_title):
       for c in nopostsc:
         posttext = posttext + f'* !{c}\n\n'
 
-      posttext = posttext + "\n\nHere is a popular post from one of the above communities.\n\n"
+      posttext = posttext + "\n\nHere is a popular post from one of the above communities. 🪦♻️\n\n"
       posttext = posttext + f"[{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']})), posted in !{p['community']} ({p['score']})\n\n"
       
     posttext = posttext + f"![]({p['post']['url']})\n\n"
