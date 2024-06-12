@@ -4,6 +4,7 @@ import json
 import sys
 import string
 import random
+import urllib.parse
 from pythorhead import Lemmy
 from pythorhead.types import SortType
 
@@ -20,6 +21,11 @@ def get_commlist(cfg):
   except Exception as e:
     print("error reading config file: {e}")
     return None
+
+def gen_shield(c):
+  cenc = urllib.parse.quote_plus(c)
+  return f'![Lemmy](https://img.shields.io/lemmy/{cenc}?style=flat-square&label=Subscribers)'
+
 
 def run(user, pw, instance, postcomm, cfg, post_title):
   topposts = 0
@@ -120,11 +126,13 @@ def run(user, pw, instance, postcomm, cfg, post_title):
     # check if this is a random inactive community
     lemmyverselink = "https://lemmyverse.link/" + p['post']['ap_id'][8:]
     if (n < len(toppost)) or (found is False):
-      posttext = posttext + f"## {n}. [{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']}))\n\n!{p['community']} ({p['score']})\n\n" 
+      shield = gen_shield(p['community']))
+      posttext = posttext + f"## {n}. [{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']})) ({p['score']})\n\n!{p['community']} {shield}\n\n" 
     else:
       posttext = posttext + f'\n----\n## Inactive communities 👻\n\nThese communities have had no posts in the last week:\n\n'
       for c in nopostsc:
-        posttext = posttext + f'* !{c}\n\n'
+        shield = gen_shield(c)
+        posttext = posttext + f'* !{c} {shield}\n\n'
 
       posttext = posttext + "\n\nHere is a popular post from one of the above communities. 🪦♻️\n\n"
       posttext = posttext + f"[{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']})), posted in !{p['community']} ({p['score']})\n\n"
