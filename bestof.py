@@ -154,5 +154,17 @@ def run(user, pw, instance, postcomm, cfg, post_title):
       post = lemmy.post.create(community_id, post_title, url=toppost[0]['post']['url'], body=posttext)
     except Exception as e:
       print(f'cannot post, exception = {e}\n')
-      sys.exit(0) # say we succeeded as it tends to fail but post anyway
+      sys.exit(0) # say we succeeded as it tends to fail (timeout) but post anyway
 
+    try:
+      comment = lemmy.comment.create(post["post_view"]["post"]["id"], "Please comment under the original posts.  The main links are using lemmyverse.link which should redirect to the post on your own instance.  Some apps do this themselves when using the direct link.\n\nIf you have a comment about the weekly posts please create a [META] post in the community.  Thanks!")
+    except Exception as e:
+      print(f'cannot post comment, exception = {e}\n')
+      # not critical - continue
+      
+    try:
+      lock = lemmy.post.lock(post["post_view"]["post"]["id"], True)
+    except Exception as e:
+      print(f'cannot lock post, exception = {e}\n')
+      # not critical - exit with success code
+      sys.exit(0)
