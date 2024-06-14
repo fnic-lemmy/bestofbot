@@ -34,7 +34,7 @@ def run(user, pw, instance, postcomm, cfg, post_title):
   noposts = 0
   nopostsc = []
 
-  lemmy = Lemmy(f'https://{instance}', raise_exceptions=True)
+  lemmy = Lemmy(f'https://{instance}', raise_exceptions=True, request_timeout=30)
   try:
     lemmy.log_in(user, pw)
   except Exception as e:
