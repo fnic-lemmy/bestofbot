@@ -1,1 +1,1 @@
-pythorhead==0.24.2
+pythorhead==0.25.0
