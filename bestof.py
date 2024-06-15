@@ -22,6 +22,25 @@ def get_commlist(cfg):
     print("error reading config file: {e}")
     return None
 
+def get_comminfo(lemmy, c):
+  try:
+    id = lemmy.discover_community(c)
+  except Exception as e:
+    print(f'cannot discover {c}: {e}')
+    return None
+
+  return lemmy.community.get(id)["community_view"]["community"]
+
+def extract_desc(desc):
+  d = desc.splitlines()
+  for l in d:
+    if (len(l) > 0):
+      if (l[:4] == "### "):
+        return l[4:]
+      if (l[:2] != "# "):
+        return l
+  return None
+
 def gen_shield(c):
   cenc = urllib.parse.quote_plus(c)
   return f'![Lemmy](https://img.shields.io/lemmy/{cenc}?style=flat-square&label=Subscribers)'
@@ -108,6 +127,7 @@ def run(user, pw, instance, postcomm, cfg, post_title):
               toppost[topposts]['post'] = p['post']
               toppost[topposts]['score'] = p['counts']['score']
               toppost[topposts]['community'] = comm
+              toppost[topposts]['comminfo'] = p['community']
               toppost[topposts]['author'] = p['creator']
               topposts += 1
 
@@ -132,7 +152,12 @@ def run(user, pw, instance, postcomm, cfg, post_title):
       posttext = posttext + f'\n----\n## Inactive communities 👻\n\nThese communities have had no posts in the last week:\n\n'
       for c in nopostsc:
         shield = gen_shield(c)
-        posttext = posttext + f'* !{c} {shield}\n\n'
+        comminfo = get_comminfo(lemmy, c)
+        print(comminfo)
+        posttext = posttext + f'- [{comminfo["title"]}](/c/{c}) {shield}\n'
+        commdesc = extract_desc(comminfo["description"])
+        if commdesc is not None:
+          posttext += f'   - {commdesc}\n'
 
       posttext = posttext + "\n\nHere is a popular post from one of the inactive communities. 🪦♻️\n\n"
       posttext = posttext + f"[{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']})), posted in !{p['community']} ({p['score']})\n\n"
