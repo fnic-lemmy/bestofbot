@@ -35,9 +35,7 @@ def extract_desc(desc):
   d = desc.splitlines()
   for l in d:
     if (len(l) > 0):
-      if (l[:4] == "### "):
-        return l[4:]
-      if (l[:2] != "# "):
+      if (l[:1] != "#"):
         return l
   return None
 
