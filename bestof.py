@@ -134,7 +134,7 @@ def run(user, pw, instance, postcomm, cfg, post_title):
         shield = gen_shield(c)
         posttext = posttext + f'* !{c} {shield}\n\n'
 
-      posttext = posttext + "\n\nHere is a popular post from one of the above communities. 🪦♻️\n\n"
+      posttext = posttext + "\n\nHere is a popular post from one of the inactive communities. 🪦♻️\n\n"
       posttext = posttext + f"[{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']})), posted in !{p['community']} ({p['score']})\n\n"
       
     posttext = posttext + f"![]({p['post']['url']})\n\n"
