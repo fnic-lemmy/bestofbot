@@ -88,6 +88,7 @@ def run(user, pw, instance, postcomm, cfg, post_title):
             toppost[topposts]['post'] = p['post']
             toppost[topposts]['score'] = p['counts']['score']
             toppost[topposts]['community'] = comm
+            toppost[topposts]['comminfo'] = p['community']
             toppost[topposts]['author'] = p['creator']
             topposts += 1
 
@@ -145,7 +146,7 @@ def run(user, pw, instance, postcomm, cfg, post_title):
     lemmyverselink = "https://lemmyverse.link/" + p['post']['ap_id'][8:]
     if (n < len(toppost)) or (found is False):
       shield = gen_shield(p['community'])
-      posttext = posttext + f"## {n}. [{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']})) ({p['score']})\n\n!{p['community']} {shield}\n\n" 
+      posttext = posttext + f"## {n}. [{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']})) ({p['score']})\n\n[{p['comminfo']['title']}](/c/{p['community']}) {shield}\n\n"
     else:
       posttext = posttext + f'\n----\n## Inactive communities 👻\n\nThese communities have had no posts in the last week:\n\n'
       for c in nopostsc:
@@ -157,7 +158,7 @@ def run(user, pw, instance, postcomm, cfg, post_title):
           posttext += f'   - {commdesc}\n'
 
       posttext = posttext + "\n\nHere is a popular post from one of the inactive communities. 🪦♻️\n\n"
-      posttext = posttext + f"[{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']})), posted in !{p['community']} ({p['score']})\n\n"
+      posttext = posttext + f"[{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']})), posted in [{p['comminfo']['title']}](/c/{p['community']}) ({p['score']})\n\n"
       
     posttext = posttext + f"![]({p['post']['url']})\n\n"
     posttext = posttext + f"Posted by [{p['author']['name']}]({p['author']['actor_id']})\n\n"
