@@ -162,6 +162,7 @@ def run(user, pw, instance, postcomm, cfg, post_title):
     posttext = posttext + f"![]({p['post']['url']})\n\n"
     posttext = posttext + f"Posted by [{p['author']['name']}]({p['author']['actor_id']})\n\n"
   
+  posttext += "\n\nThe main links are using lemmyverse.link which should redirect to the post on your own instance. If you have not used this before, you may need to go direct to https://lemmyverse.link/ and click on 'configure instance'.  Some apps will open posts correctly when using the direct link."
   print(posttext)
 
   if postcomm is None:
@@ -182,7 +183,7 @@ def run(user, pw, instance, postcomm, cfg, post_title):
       sys.exit(0) # say we succeeded as it tends to fail (timeout) but post anyway
 
     try:
-      comment = lemmy.comment.create(post["post_view"]["post"]["id"], "Please comment under the original posts.  The main links are using lemmyverse.link which should redirect to the post on your own instance. If you have not used this before, you may need to go direct to https://lemmyverse.link/ and click on 'configure instance'.  Some apps will open posts correctly when using the direct link.\n\nThe descriptions of the inactive communities are auto-generated, the community mods will need to correct these if they are incorrect.\n\nIf you have a comment about the weekly posts please create a [META] post in the community.  Thanks!")
+      comment = lemmy.comment.create(post["post_view"]["post"]["id"], "Please comment under the original posts.  \n\nThe descriptions of the inactive communities are auto-generated, the community mods will need to correct these if they are incorrect. It will pick up the first non-header line from the sidebar.\n\nIf you have a comment about the weekly posts please create a [META] post in the community.  Thanks!")
     except Exception as e:
       print(f'cannot post comment, exception = {e}\n')
       # not critical - continue
