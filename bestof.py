@@ -5,6 +5,7 @@ import sys
 import string
 import random
 import urllib.parse
+from urllib.parse import urlparse
 from pythorhead import Lemmy
 from pythorhead.types import SortType
 
@@ -50,6 +51,8 @@ def run(user, pw, instance, postcomm, cfg, post_title):
 
   noposts = 0
   nopostsc = []
+
+  skip_urls = ["rabbitea.rs", "file.coffee"]
 
   lemmy = Lemmy(f'https://{instance}', raise_exceptions=True, request_timeout=30)
   try:
@@ -121,6 +124,10 @@ def run(user, pw, instance, postcomm, cfg, post_title):
         if (len(posts) > 0):
           for p in posts:
             if('url' in p['post']):
+              host = urlparse(p['post']['url'])
+              if(host.netloc in skip_urls):
+                print(f'skipping {host.netloc}\n')
+                break
               toppost.append(0)
               toppost[topposts] = {}
               toppost[topposts]['post'] = p['post']
