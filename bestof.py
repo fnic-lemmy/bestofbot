@@ -184,7 +184,7 @@ def run(user, pw, instance, postcomm, cfg, post_title):
       sys.exit(0) # say we succeeded as it tends to fail (timeout) but post anyway
 
     try:
-      comment = lemmy.comment.create(post["post_view"]["post"]["id"], "Please comment under the original posts.  \n\nThe descriptions of the inactive communities are auto-generated, the community mods will need to correct these if they are incorrect. It will pick up the first non-header line from the sidebar.\n\nIf you have a comment about the weekly posts please create a [META] post in the community.  Thanks!")
+      comment = lemmy.comment.create(post["post_view"]["post"]["id"], "Please comment under the original posts.  \n\nThe descriptions of the inactive communities are auto-generated, it will pick up the first non-header line from the sidebar.\n\nIf you have a comment about the weekly posts please create a [META] post in the community.  Thanks!")
     except Exception as e:
       print(f'cannot post comment, exception = {e}\n')
       # not critical - continue
