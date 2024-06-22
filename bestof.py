@@ -32,13 +32,16 @@ def get_comminfo(lemmy, c):
 
   return lemmy.community.get(id)["community_view"]["community"]
 
-def extract_desc(desc):
-  d = desc.splitlines()
-  for l in d:
-    if (len(l) > 0):
-      if (l[:1] != "#"):
-        return l
-  return None
+def extract_desc(ci):
+  if "description" in ci:
+    desc = ci["description"]
+    d = desc.splitlines()
+    for l in d:
+      if (len(l) > 0):
+        if (l[:1] != "#"):
+          return l
+
+  return "No description"
 
 def gen_shield(c):
   cenc = urllib.parse.quote_plus(c)
@@ -166,7 +169,7 @@ def run(user, pw, instance, postcomm, cfg, post_title):
         shield = gen_shield(c)
         comminfo = get_comminfo(lemmy, c)
         posttext = posttext + f'- [{comminfo["title"]}](/c/{c}) {shield}\n'
-        commdesc = extract_desc(comminfo["description"])
+        commdesc = extract_desc(comminfo)
         if commdesc is not None:
           posttext += f'   - {commdesc}\n'
 
