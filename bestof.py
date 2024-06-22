@@ -48,14 +48,12 @@ def gen_shield(c):
   return f'![Lemmy](https://img.shields.io/lemmy/{cenc}?style=flat-square&label=Subscribers)'
 
 
-def run(user, pw, instance, postcomm, cfg, post_title):
+def run(user, pw, instance, postcomm, cfg, post_title, images_only):
   topposts = 0
   toppost = []
 
   noposts = 0
   nopostsc = []
-
-  images_only = True
 
   nsfw = False
 
