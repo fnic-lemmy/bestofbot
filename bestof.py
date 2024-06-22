@@ -52,6 +52,8 @@ def run(user, pw, instance, postcomm, cfg, post_title):
   noposts = 0
   nopostsc = []
 
+  nsfw = False
+
   skip_urls = ["rabbitea.rs", "file.coffee"]
 
   lemmy = Lemmy(f'https://{instance}', raise_exceptions=True, request_timeout=30)
@@ -93,6 +95,8 @@ def run(user, pw, instance, postcomm, cfg, post_title):
             toppost[topposts]['community'] = comm
             toppost[topposts]['comminfo'] = p['community']
             toppost[topposts]['author'] = p['creator']
+            if p['post']['nsfw'] is True:
+              nsfw = True
             topposts += 1
 
             break
@@ -135,6 +139,8 @@ def run(user, pw, instance, postcomm, cfg, post_title):
               toppost[topposts]['community'] = comm
               toppost[topposts]['comminfo'] = p['community']
               toppost[topposts]['author'] = p['creator']
+              if p['post']['nsfw'] is True:
+                nsfw = True
               topposts += 1
 
               found = True
@@ -173,6 +179,9 @@ def run(user, pw, instance, postcomm, cfg, post_title):
   posttext += "\n\n----\n\nThe main links are using lemmyverse.link which should redirect to the post on your own instance. If you have not used this before, you may need to go direct to https://lemmyverse.link/ and click on 'configure instance'.  Some apps will open posts correctly when using the direct link."
   print(posttext)
 
+  if nsfw is True:
+    print("** nsfw posts detected **")
+
   if postcomm is None:
     sys.exit(0)
 
@@ -185,7 +194,7 @@ def run(user, pw, instance, postcomm, cfg, post_title):
   if community_id is not None:
     '''post'''
     try:
-      post = lemmy.post.create(community_id, post_title, url=toppost[0]['post']['url'], body=posttext)
+      post = lemmy.post.create(community_id, post_title, url=toppost[0]['post']['url'], body=posttext, nsfw=nsfw)
     except Exception as e:
       print(f'cannot post, exception = {e}\n')
       sys.exit(0) # say we succeeded as it tends to fail (timeout) but post anyway
