@@ -55,6 +55,8 @@ def run(user, pw, instance, postcomm, cfg, post_title):
   noposts = 0
   nopostsc = []
 
+  images_only = True
+
   nsfw = False
 
   skip_urls = ["rabbitea.rs", "file.coffee"]
@@ -91,6 +93,12 @@ def run(user, pw, instance, postcomm, cfg, post_title):
       if (len(posts) > 0):
         for p in posts:
           if('url' in p['post']):
+            if images_only is True:
+              mime = p['post']['url_content_type']
+              print(mime[:5])
+              if(mime[:5] != "image") and (mime[:11] != "application"):
+                continue
+            print(p['post'])
             toppost.append(0)
             toppost[topposts] = {}
             toppost[topposts]['post'] = p['post']
@@ -135,6 +143,10 @@ def run(user, pw, instance, postcomm, cfg, post_title):
               if(host.netloc in skip_urls):
                 print(f'skipping {host.netloc}\n')
                 break
+              if images_only is True:
+                mime = p['post']['url_content_type']
+                if(mime[:5] != "image") and (mime[:11] != "application"):
+                  continue
               toppost.append(0)
               toppost[topposts] = {}
               toppost[topposts]['post'] = p['post']
