@@ -174,7 +174,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b):
     n += 1
     # set nsfw tag
     if p['post']['nsfw'] is True:
-      nsfw_txt = "**NSFW**"
+      nsfw_txt = "[**NSFW**]"
     else:
       nsfw_txt = ""
     # check if this is a random inactive community
