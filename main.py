@@ -28,7 +28,7 @@ def main(user, pw, inst, comm, cfg, title, imgs, nsfw):
 # Start script
 if __name__ == "__main__":
     try:
-        main(BOTUSER, BOTPW, BOTINSTANCE, POSTCOMMUNITY, COMMUNITIES, TITLE, IMAGESONLY, NSFW)
+        main(BOTUSER, BOTPW, BOTINSTANCE, POSTCOMMUNITY, COMMUNITIES, TITLE, int(IMAGESONLY), int(NSFW))
     except Exception as err:
         message = (
             f"Task #{TASK_INDEX}, " + f"Attempt #{TASK_ATTEMPT} failed: {str(err)}"
