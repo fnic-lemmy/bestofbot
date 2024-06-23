@@ -48,7 +48,7 @@ def gen_shield(c):
   return f'![Lemmy](https://img.shields.io/lemmy/{cenc}?style=flat-square&label=Subscribers)'
 
 
-def run(user, pw, instance, postcomm, cfg, post_title, images_only):
+def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b):
   topposts = 0
   toppost = []
 
@@ -56,6 +56,10 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only):
   nopostsc = []
 
   nsfw = False
+
+  if nsfw_b == 1:
+    # force nsfw
+    nsfw = True
 
   skip_urls = ["rabbitea.rs", "file.coffee"]
 

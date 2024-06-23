@@ -13,21 +13,22 @@ POSTCOMMUNITY = os.getenv("COMMUNITY", 0)
 COMMUNITIES = os.getenv("COMMLIST", 0)
 TITLE = os.getenv("POSTTITLE", 0)
 IMAGESONLY = os.getenv("IMAGES_ONLY", 0)
+NSFW = os.getenv("NSFW_BEHAVIOUR", 0)
 
-def main(user, pw, inst, comm, cfg, title, imgs):
+def main(user, pw, inst, comm, cfg, title, imgs, nsfw):
 
     io = False
 
     if imgs == 1:
       io = True
 
-    bestof.run(user, pw, inst, comm, cfg, title, io)
+    bestof.run(user, pw, inst, comm, cfg, title, io, nsfw)
     return "imaginarybot"
 
 # Start script
 if __name__ == "__main__":
     try:
-        main(BOTUSER, BOTPW, BOTINSTANCE, POSTCOMMUNITY, COMMUNITIES, TITLE, IMAGESONLY)
+        main(BOTUSER, BOTPW, BOTINSTANCE, POSTCOMMUNITY, COMMUNITIES, TITLE, IMAGESONLY, NSFW)
     except Exception as err:
         message = (
             f"Task #{TASK_INDEX}, " + f"Attempt #{TASK_ATTEMPT} failed: {str(err)}"
