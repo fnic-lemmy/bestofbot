@@ -172,11 +172,16 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b):
 
   for p in toppost:
     n += 1
+    # set nsfw tag
+    if p['post']['nsfw'] is True:
+      nsfw_txt = "**NSFW**"
+    else:
+      nsfw_txt = ""
     # check if this is a random inactive community
     lemmyverselink = "https://lemmyverse.link/" + p['post']['ap_id'][8:]
     if (n < len(toppost)) or (found is False):
       shield = gen_shield(p['community'])
-      posttext = posttext + f"## {n}. [{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']})) ({p['score']})\n\n[{p['comminfo']['title']}](/c/{p['community']}) {shield}\n\n"
+      posttext = posttext + f"## {n}. [{p['post']['name']}]({lemmyverselink}) {nsfw_txt} ([direct link]({p['post']['ap_id']})) ({p['score']})\n\n[{p['comminfo']['title']}](/c/{p['community']}) {shield}\n\n"
     else:
       posttext = posttext + f'\n----\n## Inactive communities 👻\n\nThese communities have had no posts in the last week:\n\n'
       for c in nopostsc:
@@ -188,7 +193,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b):
           posttext += f'   - {commdesc}\n'
 
       posttext = posttext + "\n\nHere is a popular post from one of the inactive communities. 🪦♻️\n\n"
-      posttext = posttext + f"[{p['post']['name']}]({lemmyverselink}) ([direct link]({p['post']['ap_id']})), posted in [{p['comminfo']['title']}](/c/{p['community']}) ({p['score']})\n\n"
+      posttext = posttext + f"[{p['post']['name']}]({lemmyverselink}) {nsfw_txt} ([direct link]({p['post']['ap_id']})), posted in [{p['comminfo']['title']}](/c/{p['community']}) ({p['score']})\n\n"
       
     posttext = posttext + f"![]({p['post']['url']})\n\n"
     posttext = posttext + f"Posted by [{p['author']['name']}]({p['author']['actor_id']})\n\n"
