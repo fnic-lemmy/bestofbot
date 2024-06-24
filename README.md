@@ -18,10 +18,11 @@ POSTTITLE="**post-title**"
 ```
 
 The JSON file holds the list of communities to scan.
-The Lemmy bot password is a pointer to an entry in Google Secret Manager - it is not the password itself. 
+The Lemmy bot password is a pointer to an entry in Google Secret Manager - it is not the password itself.
+
 NSFW behaviours are;
-0 - mark as nsfw if one post is nsfw
-1 - always mark as nsfw
+- 0 - mark as nsfw if one post is nsfw
+- 1 - always mark as nsfw
 
 The bot will deploy on commits to the main branch by automatically running deploy.sh
 
