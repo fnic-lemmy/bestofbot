@@ -92,15 +92,26 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b):
       except Exception as e:
         print(f'cannot get posts for {comm}: {e}\n')
 
+      found = False
+
       if (len(posts) > 0):
         for p in posts:
           if('url' in p['post']):
             if images_only is True:
-              mime = p['post']['url_content_type']
-              print(mime[:5])
-              if(mime[:5] != "image") and (mime[:11] != "application"):
+              if 'url_content_type' in p['post']:
+                # if there's no url_content_type we accept it regardless
+                mime = p['post']['url_content_type']
+                if(mime[:5] != "image") and (mime[:11] != "application"):
+                  continue
+              else:
+                print(p['post'])
+
+            if p['post']['nsfw'] is True:
+              if nsfw_b == 2:
                 continue
-            print(p['post'])
+              else:
+                nsfw = True
+
             toppost.append(0)
             toppost[topposts] = {}
             toppost[topposts]['post'] = p['post']
@@ -108,20 +119,17 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b):
             toppost[topposts]['community'] = comm
             toppost[topposts]['comminfo'] = p['community']
             toppost[topposts]['author'] = p['creator']
-            if p['post']['nsfw'] is True:
-              if nsfw_b == 2:
-                continue
-              else:
-                nsfw = True
             topposts += 1
 
+            found = True
             break
-      else:
+
+      if found is not True:
         print(f"no posts in {comm} this week")
         nopostsc.append(0)
         nopostsc[noposts] = comm
         noposts += 1
-      
+
     else:
       print(f"cannot find {comm}\n")
 
@@ -149,9 +157,17 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b):
                 print(f'skipping {host.netloc}\n')
                 break
               if images_only is True:
-                mime = p['post']['url_content_type']
-                if(mime[:5] != "image") and (mime[:11] != "application"):
+                if 'url_content_type' in p['post']:
+                  mime = p['post']['url_content_type']
+                  if(mime[:5] != "image") and (mime[:11] != "application"):
+                    continue
+
+              if p['post']['nsfw'] is True:
+                if nsfw_b == 2:
                   continue
+                else:
+                  nsfw = True
+
               toppost.append(0)
               toppost[topposts] = {}
               toppost[topposts]['post'] = p['post']
@@ -159,11 +175,6 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b):
               toppost[topposts]['community'] = comm
               toppost[topposts]['comminfo'] = p['community']
               toppost[topposts]['author'] = p['creator']
-              if p['post']['nsfw'] is True:
-                if nsfw_b == 2:
-                  continue
-                else:
-                  nsfw = True
               topposts += 1
 
               found = True
