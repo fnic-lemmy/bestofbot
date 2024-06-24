@@ -7,23 +7,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+     - uses: actions/checkout@v4
         with:
           path: './bestofbot/'
 
-        - uses: actions/checkout@v4
+     - uses: actions/checkout@v4
         with:
           repository: 'fnic-lemmy/lemmy-directory'
           path: './directory/'
             
-      - run: |
+     - run: |
         cd ./directory
         ./scripts/directory_to_json.py
         cp ./_fnic_comms.json ../bestofbot/
         cp ./_anime_comms.json ../bestofbot/
 
       # ...and then use the action as you would normally do, but providing the path to the repo
-      - uses: EndBug/add-and-commit@v9
+     - uses: EndBug/add-and-commit@v9
         with:
           message: 'Auto update communities'
           new_branch: 'community-updates'
