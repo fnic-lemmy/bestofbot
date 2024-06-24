@@ -9,6 +9,7 @@ jobs:
     steps:
      - uses: actions/checkout@v4
        with:
+         token: ${{ secrets.TOKEN }}
          path: './bestofbot/'
 
      - uses: actions/checkout@v4
@@ -33,7 +34,7 @@ jobs:
      - name: Create PR
        uses: devops-infra/action-pull-request@v0.5.5
        with:
-         github_token: ${{ github.token }}
+         github_token: ${{ secrets.TOKEN }}
          source_branch: communities-list
          target_branch: main
          title: Update community lists
