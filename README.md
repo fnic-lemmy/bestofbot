@@ -23,6 +23,7 @@ The Lemmy bot password is a pointer to an entry in Google Secret Manager - it is
 NSFW behaviours are;
 - 0 - mark as nsfw if one post is nsfw
 - 1 - always mark as nsfw
+- 2 - skip nsfw posts
 
 The bot will deploy on commits to the main branch by automatically running deploy.sh
 

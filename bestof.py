@@ -109,7 +109,10 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b):
             toppost[topposts]['comminfo'] = p['community']
             toppost[topposts]['author'] = p['creator']
             if p['post']['nsfw'] is True:
-              nsfw = True
+              if nsfw_b == 2:
+                continue
+              else:
+                nsfw = True
             topposts += 1
 
             break
@@ -157,7 +160,10 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b):
               toppost[topposts]['comminfo'] = p['community']
               toppost[topposts]['author'] = p['creator']
               if p['post']['nsfw'] is True:
-                nsfw = True
+                if nsfw_b == 2:
+                  continue
+                else:
+                  nsfw = True
               topposts += 1
 
               found = True
