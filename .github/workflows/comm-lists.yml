@@ -9,6 +9,7 @@ jobs:
     steps:
      - uses: actions/checkout@v4
        with:
+         token: ${{ secrets.TOKEN }}
          path: './bestofbot/'
 
      - uses: actions/checkout@v4
