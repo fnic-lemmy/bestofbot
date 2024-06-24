@@ -1,5 +1,5 @@
 name: Update communities
-on: push # hmm
+on: push # hmm - should be on a schedule
 
 jobs:
   run:
