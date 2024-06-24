@@ -31,8 +31,10 @@ jobs:
          default_author: 'github_actions'
          cwd: './bestofbot/'
 
-     - uses: actions/checkout@v4 # checkout again because path
-       name: Create PR
+     - name: Create PR
+       uses: actions/checkout@v4 # checkout again because path
+       with:
+         fetch-depth: 0
        
      - uses: devops-infra/action-pull-request@v0.5.5
        with:
