@@ -32,7 +32,9 @@ jobs:
          cwd: './bestofbot/'
 
      - name: Create PR
-       uses: devops-infra/action-pull-request@v0.5.5
+       uses: actions/checkout@v4 # checkout again because path
+       
+     - uses: devops-infra/action-pull-request@v0.5.5
        with:
          github_token: ${{ secrets.TOKEN }}
          source_branch: communities-list
