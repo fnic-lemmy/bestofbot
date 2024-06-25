@@ -45,7 +45,7 @@ def extract_desc(ci):
 
 def gen_shield(c):
   cenc = urllib.parse.quote_plus(c)
-  return f'![Lemmy](https://img.shields.io/lemmy/{cenc}?style=flat-square&label=Subscribers)'
+  return f'![Lemmy](https://img.shields.io/lemmy/{cenc}?style=flat&label=Subs&color=pink)'
 
 
 def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b):
