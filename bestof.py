@@ -209,7 +209,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b):
         if commdesc is not None:
           posttext += f'   - {commdesc}\n'
 
-      posttext = posttext + "\n\nHere is a popular post from one of the inactive communities. 🪦♻️\n\n"
+      posttext = posttext + "\n\n### Here is a popular post from one of the inactive communities. 🪦♻️\n\n"
       posttext = posttext + f"[{p['post']['name']}]({lemmyverselink}) {nsfw_txt} ([direct link]({p['post']['ap_id']})), posted in [{p['comminfo']['title']}](/c/{p['community']}) ({p['score']})\n\n"
       
     posttext = posttext + f"![]({p['post']['url']})\n\n"
