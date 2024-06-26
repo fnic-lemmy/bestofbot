@@ -16,7 +16,7 @@ def get_commlist(cfg):
   try:
     with open(cfg) as f:
       commlist = json.load(f)
-      commlist.sort()
+      #commlist.sort()
       return commlist
 
   except Exception as e:
@@ -104,7 +104,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b):
                 if(mime[:5] != "image") and (mime[:11] != "application"):
                   continue
               else:
-                print(p['post'])
+                print(f'no mime type for {p["post"]["id"]}')
 
             if p['post']['nsfw'] is True:
               if nsfw_b == 2:
