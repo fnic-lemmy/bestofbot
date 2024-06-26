@@ -44,8 +44,18 @@ def extract_desc(ci):
   return "No description"
 
 def gen_shield(c):
+  mbin = [ 'fedia.io',
+           'kbin.social'
+         ]
+
+  dom = c.split('@')[1]
+  if dom in mbin:
+    serv = "mbin"
+  else:
+    serv = "lemmy"
+
   cenc = urllib.parse.quote_plus(c)
-  return f'![Lemmy](https://img.shields.io/lemmy/{cenc}?style=flat&label=Subs&color=pink)'
+  return f'![{serv}](https://img.shields.io/{serv}/{cenc}?style=flat&label=Subs&color=pink)'
 
 
 def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b):
