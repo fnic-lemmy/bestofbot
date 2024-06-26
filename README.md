@@ -2,6 +2,9 @@
 
 This bot scans a set of Lemmy communities to find the highest rated post in the last week. 
 
+It posts to `/c/lemmydirectory@lemmy.dbzer0.com` on the schedule in the following calendar: https://use10.thegood.cloud/apps/calendar/p/dFMpSoX7FPf6EyYX
+
+---
 deploy.sh contains the configuration items as follows:
 
 ```
