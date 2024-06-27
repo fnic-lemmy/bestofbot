@@ -38,7 +38,7 @@ def extract_desc(ci):
     d = desc.splitlines()
     for l in d:
       if (len(l) > 0):
-        if (l[:1] != "#"):
+        if (l[:1] != '#') and (l[:1] != '-') and (l[:1] != '*'):
           return l
 
   return "No description"
