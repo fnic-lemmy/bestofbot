@@ -10,4 +10,7 @@ def gist_update(filename, contents, gist, auth):
     g = Github(auth=auth)
     gist = g.get_gist(gist)
 
-    gist.edit(files = {filename: InputFileContent(contents)})
+    try:
+      gist.edit(files = {f'{filename}': InputFileContent(f'{contents}')})
+    except Exception as e:
+	  print(f'Cannot post Gist: {e}')
