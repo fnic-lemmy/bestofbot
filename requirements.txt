@@ -1,1 +1,2 @@
 pythorhead==0.25.0
+PyGithub==2.3.0
