@@ -3,7 +3,7 @@ project="fnic-2024"
 region="europe-west1"
 comm="lemmydirectory@lemmy.dbzer0.com"
 mod_user="fnicmodbot"
-mod_pw="fnicmodbot-db0:latest"
+mod_pw="fnicmodbot-dbzer0:latest"
 gist="94127e24dc129210db8dfb819dd8d6b1"
 ghtoken="gh-fnic-bot-gist:latest"
 
