@@ -13,4 +13,4 @@ def gist_update(filename, contents, gist, auth):
     try:
       gist.edit(files = {f'{filename}': InputFileContent(f'{contents}')})
     except Exception as e:
-	  print(f'Cannot post Gist: {e}')
+      print(f'Cannot post Gist: {e}')
