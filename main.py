@@ -29,8 +29,9 @@ def main(user, pw, inst, comm, cfg, title, imgs, nsfw, moduser, modpw, gist, ght
 
     contents = bestof.run(user, pw, inst, comm, cfg, title, io, nsfw, moduser, modpw)
     if contents is not None:
-      gh.gist_update(f'{cfg}.md', contents, gist, ghtoken)
-      
+      fn = cfg.split('/')[1].split('.')[0]
+      gh.gist_update(f'{fn}.md', contents, gist, ghtoken)
+
     return "bestofbot"
 
 # Start script

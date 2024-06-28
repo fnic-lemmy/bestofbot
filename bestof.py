@@ -233,7 +233,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
     print("** nsfw posts detected **")
 
   if postcomm is None:
-    sys.exit(0)
+    return posttext
 
   try:
     community_id = lemmy.discover_community(postcomm)
