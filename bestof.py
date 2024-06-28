@@ -247,7 +247,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
       post = lemmy.post.create(community_id, post_title, url=toppost[0]['post']['url'], body=posttext, nsfw=nsfw)
     except Exception as e:
       print(f'cannot post, exception = {e}\n')
-      sys.exit(0) # say we succeeded as it tends to fail (timeout) but post anyway
+      return posttext
 
     try:
       comment = lemmy.comment.create(post["post_view"]["post"]["id"], "Please comment under the original posts.  \n\nThe descriptions of the inactive communities are auto-generated, it will pick up the first non-header line from the sidebar.\n\nIf you have a comment about the weekly posts please create a [META] post in the community.  Thanks!")
@@ -268,4 +268,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
     except Exception as e:
       print(f'cannot lock post, exception = {e}\n')
       # not critical - exit with success code
-      sys.exit(0)
+      return posttext
+
+  return posttext
+  
