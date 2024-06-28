@@ -58,7 +58,7 @@ def gen_shield(c):
   return f'![{serv}](https://img.shields.io/{serv}/{cenc}?style=flat&label=Subs&color=pink)'
 
 
-def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b):
+def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, moduser, modpw):
   topposts = 0
   toppost = []
 
@@ -254,7 +254,15 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b):
     except Exception as e:
       print(f'cannot post comment, exception = {e}\n')
       # not critical - continue
-      
+    
+    if moduser != 0:
+      # log in as our mod user
+      try:
+        lemmy.log_in(moduser, modpw)
+      except Exception as e:
+        print(f'login failed: {e}\n')
+        # non-fatal, we'll try with the regular user
+    
     try:
       lock = lemmy.post.lock(post["post_view"]["post"]["id"], True)
     except Exception as e:
