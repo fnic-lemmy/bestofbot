@@ -122,17 +122,25 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
               else:
                 nsfw = True
 
-            toppost.append(0)
-            toppost[topposts] = {}
-            toppost[topposts]['post'] = p['post']
-            toppost[topposts]['score'] = p['counts']['score']
-            toppost[topposts]['community'] = comm
-            toppost[topposts]['comminfo'] = p['community']
-            toppost[topposts]['author'] = p['creator']
-            topposts += 1
-
             found = True
             break
+
+          else:
+            if images_only is True:
+              continue
+            else:
+              found = True
+              break
+
+      if found is True:
+        toppost.append(0)
+        toppost[topposts] = {}
+        toppost[topposts]['post'] = p['post']
+        toppost[topposts]['score'] = p['counts']['score']
+        toppost[topposts]['community'] = comm
+        toppost[topposts]['comminfo'] = p['community']
+        toppost[topposts]['author'] = p['creator']
+        topposts += 1
 
       if found is not True:
         print(f"no posts in {comm} this week")
@@ -178,21 +186,26 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
                 else:
                   nsfw = True
 
-              toppost.append(0)
-              toppost[topposts] = {}
-              toppost[topposts]['post'] = p['post']
-              toppost[topposts]['score'] = p['counts']['score']
-              toppost[topposts]['community'] = comm
-              toppost[topposts]['comminfo'] = p['community']
-              toppost[topposts]['author'] = p['creator']
-              topposts += 1
-
               found = True
-
               break
 
-        if found is True:
-          break
+            else:
+              if images_only is True:
+                continue
+              else:
+                found = True
+                break
+
+          if found is True:
+            toppost.append(0)
+            toppost[topposts] = {}
+            toppost[topposts]['post'] = p['post']
+            toppost[topposts]['score'] = p['counts']['score']
+            toppost[topposts]['community'] = comm
+            toppost[topposts]['comminfo'] = p['community']
+            toppost[topposts]['author'] = p['creator']
+            topposts += 1
+            break
 
   posttext = ''
   n = 0
