@@ -6,6 +6,7 @@ import string
 import random
 import tldr
 import smmry
+import yt
 import urllib.parse
 from urllib.parse import urlparse
 from pythorhead import Lemmy
@@ -246,13 +247,20 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
     elif "url" in p['post']:
       if "url_content_type" in p['post']:
         if p['post']['url_content_type'][:9] == 'text/html':
-          t = tldr.tldrthis(tldrkey, p['post']['url'])
+          # try youtibe
+          t = yt.get(p['post']['url'])
           if t is not None:
             posttext += t
           else:
-            t = smmry.smmry(smmrykey, p['post']['url'], True)
+            # run through tldr
+            t = tldr.tldrthis(tldrkey, p['post']['url'])
             if t is not None:
               posttext += t
+            else:
+              # use smmry
+              t = smmry.smmry(smmrykey, p['post']['url'], True)
+              if t is not None:
+                posttext += t
       else:
         '''no content type'''
     else:

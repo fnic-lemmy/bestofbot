@@ -3,3 +3,5 @@ PyGithub==2.3.0
 requests
 smmrpy
 aiohttp
+pytube
+
