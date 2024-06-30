@@ -19,9 +19,7 @@ gc_deploy_quick() {
 
 gc_deploy_quick "fnic" "1" "💭 ❗Top Imaginary Network posts of the week❗ 💭"
 gc_deploy_quick "generalart" "1" "🎨 ❗Top General Artworks posts of the week❗ 🎨"
-
-gcloud run jobs deploy bestofbot-photo --project=$project --region=$region --source . --set-env-vars=BOTUSER="best_of_photo_bot",BOTINSTANCE="lemmy.dbzer0.com",COMMUNITY="$comm",COMMLIST="configs/_photography_comms.json",MODUSER="$mod_user",IMAGES_ONLY=1,NSFW_BEHAVIOUR=2,GIST=$gist,POSTTITLE="📷❗Top Photography posts of the week❗📷" --set-secrets="BOTPW=best_of_photo_bot:latest,MODPW=$mod_pw,GHTOKEN=$ghtoken" &
-
+gc_deploy_quick "photo" "1" "📷❗Top Photography posts of the week❗📷"
 gc_deploy_quick "themes" "0" "🖼️❗Top Themes posts of the week❗🖼️"
 gc_deploy_quick "comics" "1"
 
