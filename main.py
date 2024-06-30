@@ -19,15 +19,17 @@ MODUSER = os.getenv("MODUSER",0)
 MODPW = os.getenv("MODPW", 0)
 GIST = os.getenv("GIST", 0)
 GHTOKEN = os.getenv("GHTOKEN", 0)
+TLDRTHIS_APIKEY = os.getenv("TLDRTHIS_API", 0)
+SMMRY_APIKEY = os.getenv("SMMRY_API", 0)
 
-def main(user, pw, inst, comm, cfg, title, imgs, nsfw, moduser, modpw, gist, ghtoken):
+def main(user, pw, inst, comm, cfg, title, imgs, nsfw, moduser, modpw, gist, ghtoken, tldr_api, smmry_api):
 
     io = False
 
     if imgs == 1:
       io = True
 
-    contents = bestof.run(user, pw, inst, comm, cfg, title, io, nsfw, moduser, modpw)
+    contents = bestof.run(user, pw, inst, comm, cfg, title, io, nsfw, moduser, modpw, tldr_api, smmry_api)
     if contents is not None:
       fn = cfg.split('/')[1].split('.')[0]
       gh.gist_update(f'{fn}.md', contents, gist, ghtoken)
@@ -37,7 +39,8 @@ def main(user, pw, inst, comm, cfg, title, imgs, nsfw, moduser, modpw, gist, ght
 # Start script
 if __name__ == "__main__":
     try:
-        main(BOTUSER, BOTPW, BOTINSTANCE, POSTCOMMUNITY, COMMUNITIES, TITLE, int(IMAGESONLY), int(NSFW), MODUSER, MODPW, GIST, GHTOKEN)
+        main(BOTUSER, BOTPW, BOTINSTANCE, POSTCOMMUNITY, COMMUNITIES, TITLE,
+             int(IMAGESONLY), int(NSFW), MODUSER, MODPW, GIST, GHTOKEN, TLDRTHIS_APIKEY, SMMRY_APIKEY)
     except Exception as err:
         message = (
             f"Task #{TASK_INDEX}, " + f"Attempt #{TASK_ATTEMPT} failed: {str(err)}"

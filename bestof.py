@@ -4,6 +4,8 @@ import json
 import sys
 import string
 import random
+import tldr
+import smmry
 import urllib.parse
 from urllib.parse import urlparse
 from pythorhead import Lemmy
@@ -58,7 +60,7 @@ def gen_shield(c):
   return f'![{serv}](https://img.shields.io/{serv}/{cenc}?style=flat&label=Subs&color=pink)'
 
 
-def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, moduser, modpw):
+def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, moduser, modpw, tldrkey, smmrykey):
   topposts = 0
   toppost = []
 
@@ -236,8 +238,20 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
       posttext = posttext + "\n\n### Here is a popular post from one of the inactive communities. 🪦♻️\n\n"
       posttext = posttext + f"[{p['post']['name']}]({lemmyverselink}) {nsfw_txt} ([direct link]({p['post']['ap_id']})), posted in [{p['comminfo']['title']}](/c/{p['community']}) ({p['score']})\n\n"
     
-    if(images_only is True) or (("url_content_type" in p['post']) and (p['post']['url_content_type'][:5] == "image")):
+    #if 'url_content_type' in p['post']:
+    #  print(f'{p["post"]["name"]} - {p["post"]["url_content_type"]}')
+
+    if(images_only is True) or ("url_content_type" not in p['post']) or (("url_content_type" in p['post']) and (p['post']['url_content_type'][:5] == "image")):
       posttext = posttext + f"![]({p['post']['url']})\n\n"
+    elif "url_content_type" in p['post']:
+      if p['post']['url_content_type'][:9] == 'text/html':
+        t = tldr.tldrthis(tldrkey, p['post']['url'])
+        if t is not None:
+          posttext += t
+        else:
+          posttext += smmry.smmry(smmrykey, p['post']['url'])
+
+
 
     posttext = posttext + f"Posted by [{p['author']['name']}]({p['author']['actor_id']})\n\n"
   
