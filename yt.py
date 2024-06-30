@@ -4,7 +4,7 @@ from pytube import YouTube
 def get(url):
   yt = None
 
-  if (url[:17] != 'https://youtu.be/') and (url[:20] != 'https://youtube.com/'):
+  if (url[:17] != 'https://youtu.be/') and (url[:20] != 'https://youtube.com/') and (url[:24] != 'https://www.youtube.com/'):
     return None
 
   try:
