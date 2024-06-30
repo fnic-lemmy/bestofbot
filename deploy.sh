@@ -22,9 +22,7 @@ gc_deploy_quick "generalart" "1" "🎨 ❗Top General Artworks posts of the week
 gc_deploy_quick "photo" "1" "📷❗Top Photography posts of the week❗📷"
 gc_deploy_quick "themes" "0" "🖼️❗Top Themes posts of the week❗🖼️"
 gc_deploy_quick "comics" "1"
-
-gcloud run jobs deploy bestofbot-wallpapers --project=$project --region=$region --source . --set-env-vars=BOTUSER="best_of_wallpapers_bot",BOTINSTANCE="lemmy.dbzer0.com",COMMUNITY="$comm",COMMLIST="configs/_wallpaper_comms.json",MODUSER="$mod_user",IMAGES_ONLY=1,NSFW_BEHAVIOUR=2,GIST=$gist,POSTTITLE="❗Top Wallpaper posts of the week❗" --set-secrets="BOTPW=best_of_wallpaper_bot:latest,MODPW=$mod_pw,GHTOKEN=$ghtoken" &
-
+gc_deploy_quick "wallpapers" "1"
 gc_deploy_quick "ai" "0" "❗Top AI Art posts of the week❗"
 gc_deploy_quick "animals" "0"
 
