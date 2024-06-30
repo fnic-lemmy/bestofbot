@@ -108,6 +108,10 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
 
       if (len(posts) > 0):
         for p in posts:
+          if p['post']['nsfw'] is True:
+            if nsfw_b == 2:
+              continue
+
           if('url' in p['post']):
             if images_only is True:
               if 'url_content_type' in p['post']:
@@ -117,12 +121,6 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
                   continue
               else:
                 print(f'no mime type for {p["post"]["id"]}')
-
-            if p['post']['nsfw'] is True:
-              if nsfw_b == 2:
-                continue
-              else:
-                nsfw = True
 
             found = True
             break
@@ -135,6 +133,8 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
               break
 
       if found is True:
+        if p['post']['nsfw'] is True:
+          nsfw = True
         toppost.append(0)
         toppost[topposts] = {}
         toppost[topposts]['post'] = p['post']
@@ -171,6 +171,10 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
 
         if (len(posts) > 0):
           for p in posts:
+            if p['post']['nsfw'] is True:
+              if nsfw_b == 2:
+                continue
+
             if('url' in p['post']):
               host = urlparse(p['post']['url'])
               if(host.netloc in skip_urls):
@@ -181,12 +185,6 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
                   mime = p['post']['url_content_type']
                   if(mime[:5] != "image") and (mime[:11] != "application"):
                     continue
-
-              if p['post']['nsfw'] is True:
-                if nsfw_b == 2:
-                  continue
-                else:
-                  nsfw = True
 
               found = True
               break
@@ -199,6 +197,8 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
                 break
 
           if found is True:
+            if p['post']['nsfw'] is True:
+              nsfw = True
             toppost.append(0)
             toppost[topposts] = {}
             toppost[topposts]['post'] = p['post']
