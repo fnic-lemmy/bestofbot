@@ -235,8 +235,10 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
 
       posttext = posttext + "\n\n### Here is a popular post from one of the inactive communities. 🪦♻️\n\n"
       posttext = posttext + f"[{p['post']['name']}]({lemmyverselink}) {nsfw_txt} ([direct link]({p['post']['ap_id']})), posted in [{p['comminfo']['title']}](/c/{p['community']}) ({p['score']})\n\n"
-      
-    posttext = posttext + f"![]({p['post']['url']})\n\n"
+    
+    if(images_only is True) or (("url_content_type" in p['post']) and (p['post']['url_content_type'][:5] == "image")):
+      posttext = posttext + f"![]({p['post']['url']})\n\n"
+
     posttext = posttext + f"Posted by [{p['author']['name']}]({p['author']['actor_id']})\n\n"
   
   posttext += "\n\n----\n\nThe main links are using lemmyverse.link which should redirect to the post on your own instance. If you have not used this before, you may need to go direct to https://lemmyverse.link/ and click on 'configure instance'.  Some apps will open posts correctly when using the direct link."
