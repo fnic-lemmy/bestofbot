@@ -243,15 +243,23 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
 
     if(images_only is True) or ("url_content_type" not in p['post']) or (("url_content_type" in p['post']) and (p['post']['url_content_type'][:5] == "image")):
       posttext = posttext + f"![]({p['post']['url']})\n\n"
-    elif "url_content_type" in p['post']:
-      if p['post']['url_content_type'][:9] == 'text/html':
-        t = tldr.tldrthis(tldrkey, p['post']['url'])
-        if t is not None:
-          posttext += t
-        else:
-          posttext += smmry.smmry(smmrykey, p['post']['url'])
-
-
+    elif "url" in p['post']:
+      if "url_content_type" in p['post']:
+        if p['post']['url_content_type'][:9] == 'text/html':
+          t = tldr.tldrthis(tldrkey, p['post']['url'])
+          if t is not None:
+            posttext += t
+          else:
+            t = smmry.smmry(smmrykey, p['post']['url'], True)
+            if t is not None:
+              posttext += t
+      else:
+        '''no content type'''
+    else:
+      '''not url'''
+      t = smmry.smmry(smmrykey, p['post']['ap_id'], False)
+      if t is not None:
+        posttext += t
 
     posttext = posttext + f"Posted by [{p['author']['name']}]({p['author']['actor_id']})\n\n"
   
