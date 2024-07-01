@@ -46,6 +46,22 @@ def extract_desc(ci):
 
   return "No description"
 
+def shorten_text(text):
+  if len(text) > 100:
+    return f'{text[:100]}...\n\n'
+  else:
+    return text
+
+def add_embed(p):
+  if "embed_title" in p:
+    t = f'*{p["embed_title"]}*\n\n'
+  else:
+    t = ""
+    
+  if "embed_description" in p:
+    t += f'{p["embed_description"]}\n\n'
+  return t
+                
 def gen_shield(c):
   mbin = [ 'fedia.io',
            'kbin.social'
@@ -214,6 +230,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
   n = 0
 
   for p in toppost:
+    #print(p['post'])
     n += 1
     # set nsfw tag
     if p['post']['nsfw'] is True:
@@ -225,6 +242,8 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
     if (n < len(toppost)) or (found is False):
       shield = gen_shield(p['community'])
       title = p['comminfo']['title'].strip()
+      if n > 1:
+        posttext += '\n----\n'
       posttext = posttext + f"### {n}. [{p['post']['name']}]({lemmyverselink}) {nsfw_txt} ([direct link]({p['post']['ap_id']})) ({p['score']})\n\nfrom **{title}** (!{p['community']}) {shield}\n\n"
     else:
       posttext = posttext + f'\n----\n# Inactive communities 👻\n\nThese communities have had no posts in the last week:\n\n'
@@ -242,7 +261,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
     #if 'url_content_type' in p['post']:
     #  print(f'{p["post"]["name"]} - {p["post"]["url_content_type"]}')
 
-    if(images_only is True) or ("url_content_type" not in p['post']) or (("url_content_type" in p['post']) and (p['post']['url_content_type'][:5] == "image")):
+    if(images_only is True) or ("url" in p['post'] and (("url_content_type" not in p['post']) or (("url_content_type" in p['post']) and (p['post']['url_content_type'][:5] == "image")))):
       posttext = posttext + f"![]({p['post']['url']})\n\n"
     elif "url" in p['post']:
       if "url_content_type" in p['post']:
@@ -257,17 +276,33 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
             if t is not None:
               posttext += t
             else:
-              # use smmry
-              t = smmry.smmry(smmrykey, p['post']['url'], True)
+              t = add_embed(p['post'])
               if t is not None:
                 posttext += t
+              else:
+                # use smmry
+                t = smmry.smmry(smmrykey, p['post']['url'], True)
+                if t is not None:
+                  posttext += t
+                else:
+                  if 'body' in p['post']:
+                    posttext += shorten_text(p['post']['body'])
       else:
         '''no content type'''
+        t = add_embed(p['post'])
+        if t is not None:
+          posttext += t
+        else:
+          if 'body' in p['post']:
+            posttext += shorten_text(p['post']['body'])
     else:
       '''not url'''
       t = smmry.smmry(smmrykey, p['post']['ap_id'], False)
       if t is not None:
         posttext += t
+      else:
+        if 'body' in p['post']:
+          posttext += shorten_text(p['post']['body'])
 
     posttext = posttext + f"Posted by [{p['author']['name']}]({p['author']['actor_id']})\n\n"
   
