@@ -10,9 +10,12 @@ def smmry(apikey, url, title):
   except Exception as e:
     print(f'smmry failed: {e}')
 
-  if title is True:
-    t = f'*{article.title}*\n\n{article.content}\n\n'
+  if article is not None:
+    if article.title is not None:
+      t = f'*{article.title}*\n\n{article.content}\n\n'
+    else:
+      t = f'{article.content}\n\n'
   else:
-    t = f'{article.content}\n\n'
+    return None
 
   return t
