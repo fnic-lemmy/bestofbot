@@ -232,6 +232,22 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
   for p in toppost:
     #print(p['post'])
     n += 1
+    
+    if "url" in p['post']:
+      if "url_content_type" in p['post']:
+        if (p['post']['url_content_type'][:5] == "image") or (images_only is True):
+          emoji = '🖼️'
+        elif (p['post']['url_content_type'][:5] == "video") or ("embed_video_url" in p['post']):
+          emoji = '🎦'
+        else:
+          emoji = '📰'
+      elif "video_embed_url" in p['post']:
+        emoji = '🎦'
+      else:
+        emoji = '📰'
+    else:
+      emoji = '🗩'
+
     # set nsfw tag
     if p['post']['nsfw'] is True:
       nsfw_txt = "[**NSFW**]"
@@ -244,7 +260,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
       title = p['comminfo']['title'].strip()
       if n > 1:
         posttext += '\n----\n'
-      posttext = posttext + f"### {n}. [{p['post']['name']}]({lemmyverselink}) {nsfw_txt} ([direct link]({p['post']['ap_id']})) ({p['score']})\n\nfrom **{title}** (!{p['community']}) {shield}\n\n"
+      posttext = posttext + f"### {n}. {emoji} [{p['post']['name']}]({lemmyverselink}) {nsfw_txt} ([direct link]({p['post']['ap_id']})) ({p['score']})\n\nfrom **{title}** (!{p['community']}) {shield}\n\n"
     else:
       posttext = posttext + f'\n----\n# Inactive communities 👻\n\nThese communities have had no posts in the last week:\n\n'
       for c in nopostsc:
@@ -256,7 +272,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
           posttext += f'   - {commdesc}\n'
 
       posttext = posttext + "\n\n### Here is a popular post from one of the inactive communities. 🪦♻️\n\n"
-      posttext = posttext + f"[{p['post']['name']}]({lemmyverselink}) {nsfw_txt} ([direct link]({p['post']['ap_id']})), posted in [{p['comminfo']['title']}](/c/{p['community']}) ({p['score']})\n\n"
+      posttext = posttext + f"{emoji} [{p['post']['name']}]({lemmyverselink}) {nsfw_txt} ([direct link]({p['post']['ap_id']})), posted in [{p['comminfo']['title']}](/c/{p['community']}) ({p['score']})\n\n"
     
     #if 'url_content_type' in p['post']:
     #  print(f'{p["post"]["name"]} - {p["post"]["url_content_type"]}')
