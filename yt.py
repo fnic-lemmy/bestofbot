@@ -13,8 +13,6 @@ def get(url):
     print({e})
     return None
 
-  print(yt)
-
   t = f'![]({yt.thumbnail_url})\n\n'
   try:
     t += f'*{yt.title}*\n\n'
