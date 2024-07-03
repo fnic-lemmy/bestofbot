@@ -4,4 +4,4 @@ requests
 smmrpy
 aiohttp
 pytube
-
+newspaper3k

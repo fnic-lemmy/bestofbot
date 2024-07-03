@@ -7,6 +7,7 @@ import random
 import tldr
 import smmry
 import yt
+import news
 import urllib.parse
 from urllib.parse import urlparse
 from pythorhead import Lemmy
@@ -282,7 +283,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
     elif "url" in p['post']:
       if "url_content_type" in p['post']:
         if p['post']['url_content_type'][:9] == 'text/html':
-          # try youtibe
+          # try youtube
           t = yt.get(p['post']['url'])
           if t is not None:
             posttext += t
@@ -292,6 +293,11 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
             if t is not None:
               posttext += t
             else:
+              # use news3k to get an article image
+              t = news.article_image(p['post']['url'])
+              if t is not None:
+                posttext += t
+              # add title/desc from lemmy api
               t = add_embed(p['post'])
               if t is not None:
                 posttext += t
@@ -309,6 +315,10 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
         if t is not None:
           posttext += t
         else:
+          # use news3k to get an article image
+          t = news.article_image(p['post']['url'])
+          if t is not None:
+            posttext += t
           if 'body' in p['post']:
             posttext += shorten_text(p['post']['body'])
     else:
