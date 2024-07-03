@@ -79,6 +79,9 @@ def gen_shield(c):
 
 
 def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, moduser, modpw, tldrkey, smmrykey):
+  if postcomm == "0":
+    postcomm = "bot_test@feddit.uk"
+    
   topposts = 0
   toppost = []
 
