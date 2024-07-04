@@ -244,7 +244,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
           emoji = '📰'
       elif ("video_embed_url" in p['post']) or (p['post']['url'].endswith('.avi', '.mp4', '.mpg')):
         emoji = '🎦'
-      elif p['post']['url'].endswith('.png', '.jpg', '.jpeg', '.webp', '.gif'):
+      elif (p['post']['url'].endswith('.png', '.jpg', '.jpeg', '.webp', '.gif')) or (images_only is True):
         emoji = '🖼️'
       else:
         emoji = '📰'
