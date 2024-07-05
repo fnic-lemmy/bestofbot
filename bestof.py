@@ -9,6 +9,7 @@ import smmry
 import yt
 import news
 import urllib.parse
+import datetime
 from urllib.parse import urlparse
 from pythorhead import Lemmy
 from pythorhead.types import SortType
@@ -90,6 +91,11 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
   if nsfw_b == 1:
     # force nsfw
     nsfw = True
+
+  # add date to post title
+  today = datetime.date.today()
+  today_text = today.strftime("%d %b %Y")
+  post_title += f' ({today_text})'
 
   skip_urls = ["rabbitea.rs", "file.coffee"]
 
