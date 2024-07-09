@@ -138,11 +138,14 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
               continue
 
           if('url' in p['post']):
+            print(p['post'])
             if images_only is True:
               if 'url_content_type' in p['post']:
                 # if there's no url_content_type we accept it regardless
                 mime = p['post']['url_content_type']
-                if(mime[:5] != "image") and (mime[:11] != "application"):
+                # we accept application/octet-stream as cara seems to return it lots, and text/html
+                # as Lemmy seems to get a bit confused and use this sometimes.
+                if(mime[:5] != "image") and (mime[:11] != "application") and (mime[:9] != "text/html"):
                   continue
               else:
                 print(f'no mime type for {p["post"]["id"]}')
