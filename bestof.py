@@ -138,7 +138,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
               continue
 
           if('url' in p['post']):
-            print(p['post'])
+            #print(p['post'])
             if images_only is True:
               if 'url_content_type' in p['post']:
                 # if there's no url_content_type we accept it regardless
