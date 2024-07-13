@@ -8,7 +8,7 @@ gist="94127e24dc129210db8dfb819dd8d6b1"
 ghtoken="gh-fnic-bot-gist:latest"
 
 gc_deploy() {
-  gcloud run jobs deploy bestofbot-$4 --project=$project --region=$region --source . --set-env-vars=BOTUSER="best_of_$1_bot",BOTINSTANCE="lemmy.dbzer0.com",COMMUNITY="$comm",COMMLIST="configs/_$4_comms.json",MODUSER="$mod_user",IMAGES_ONLY=$2,NSFW_BEHAVIOUR=2,GIST=$gist,POSTTITLE="$3" --set-secrets="BOTPW=best_of_$1_bot:latest,MODPW=$mod_pw,GHTOKEN=$ghtoken,TLDRTHIS_API=tldrthis:latest,SMMRY_API=smmry:latest" &
+  gcloud run jobs deploy bestofbot-$4 --project=$project --region=$region --source . --set-env-vars=BOTUSER="best_of_$1_bot",BOTINSTANCE="lemmy.dbzer0.com",COMMUNITY="$comm",COMMLIST="configs/$4.json",MODUSER="$mod_user",IMAGES_ONLY=$2,NSFW_BEHAVIOUR=2,GIST=$gist,POSTTITLE="$3" --set-secrets="BOTPW=best_of_$1_bot:latest,MODPW=$mod_pw,GHTOKEN=$ghtoken,TLDRTHIS_API=tldrthis:latest,SMMRY_API=smmry:latest" &
 }
 
 gc_deploy_quick() {
@@ -34,5 +34,5 @@ gc_deploy "music" "0" "🎵❗Top Music (Genres) posts of the week❗🎵" "musi
 gc_deploy "gaming" "0" "❗Top Gaming (Platforms) posts of the week❗" "gaming-platforms"
 gc_deploy "gaming" "0" "❗Top Gaming (Genres) posts of the week❗" "gaming-genres"
 
-gcloud run jobs deploy bestofbot-anime --project=$project --region=$region --source . --set-env-vars=BOTUSER="moebot",BOTINSTANCE="ani.social",COMMUNITY="$comm",COMMLIST="configs/_anime_comms.json",IMAGES_ONLY=1,NSFW_BEHAVIOUR=1,GIST=$gist,POSTTITLE="💢❗Top Anime Art posts of the week❗💢" --set-secrets="BOTPW=moebot:latest,GHTOKEN=$ghtoken" &
+gcloud run jobs deploy bestofbot-anime --project=$project --region=$region --source . --set-env-vars=BOTUSER="moebot",BOTINSTANCE="ani.social",COMMUNITY="$comm",COMMLIST="configs/anime.json",IMAGES_ONLY=1,NSFW_BEHAVIOUR=1,GIST=$gist,POSTTITLE="💢❗Top Anime Art posts of the week❗💢" --set-secrets="BOTPW=moebot:latest,GHTOKEN=$ghtoken" &
 wait
