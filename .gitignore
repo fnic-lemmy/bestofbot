@@ -167,3 +167,6 @@ gha-creds-*.json
 
 test.py
 
+# ignore configs we don't need
+configs/directory.json
+
