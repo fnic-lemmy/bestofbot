@@ -4,6 +4,7 @@ import json
 import sys
 import string
 import random
+import mimetypes
 import tldr
 import smmry
 import yt
@@ -143,12 +144,18 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
               if 'url_content_type' in p['post']:
                 # if there's no url_content_type we accept it regardless
                 mime = p['post']['url_content_type']
-                # we accept application/octet-stream as cara seems to return it lots, and text/html
-                # as Lemmy seems to get a bit confused and use this sometimes.
-                if(mime[:5] != "image") and (mime[:11] != "application") and (mime[:9] != "text/html"):
-                  continue
               else:
-                print(f'no mime type for {p["post"]["id"]}')
+                mime, encoding = mimetypes.guess_type(p['post']['url'])
+                print(f'guessed {mime} for {p["post"]["id"]}')
+              # we accept application/octet-stream as cara seems to return it lots, and text/html
+              # as Lemmy seems to get a bit confused and use this sometimes.
+              if(mime[:5] != "image") and (mime[:11] != "application"):
+                continue
+              if (mime[:9] != "text/html"):
+                # 2nd opinion
+                contenttype, encoding = mimetypes.guess_type(p['post']['url'])
+                if contenttype[:5] != "image":
+                  continue
 
             found = True
             break
