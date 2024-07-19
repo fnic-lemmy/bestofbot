@@ -114,6 +114,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
     sys.exit(1)
 
   for comm in communities:
+    print(comm)
     try:
       community_id = lemmy.discover_community(comm)
     except Exception as e:
