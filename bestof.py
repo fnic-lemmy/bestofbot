@@ -135,7 +135,6 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
 
       if (len(posts) > 0):
         for p in posts:
-          print(p)
           if ('nsfw' in p['post']) and (p['post']['nsfw']) is True:
             if nsfw_b == 2:
               continue
@@ -194,6 +193,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
     print('no active communities!')
     sys.exit(0)
 
+  print('sorting...')
   toppost.sort(reverse = True, key = sortfunc)
 
   found = False
