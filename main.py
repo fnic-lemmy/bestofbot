@@ -29,10 +29,7 @@ def main(user, pw, inst, comm, cfg, title, imgs, nsfw, moduser, modpw, gist, ght
     if imgs == 1:
       io = True
 
-    try:
-      contents = bestof.run(user, pw, inst, comm, cfg, title, io, nsfw, moduser, modpw, tldr_api, smmry_api)
-    except Exception as e:
-      print(f'err: {e}')
+    contents = bestof.run(user, pw, inst, comm, cfg, title, io, nsfw, moduser, modpw, tldr_api, smmry_api)
 
     if contents is not None:
       fn = cfg.split('/')[1].split('.')[0]

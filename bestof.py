@@ -97,6 +97,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
   today = datetime.date.today()
   today_text = today.strftime("%d %b %Y")
   post_title += f' ({today_text})'
+  print(post_title)
 
   skip_urls = ["rabbitea.rs", "file.coffee"]
 
