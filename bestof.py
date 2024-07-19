@@ -188,6 +188,10 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
     else:
       print(f"cannot find {comm}\n")
 
+  if len(toppost) == 0:
+    print('no active communities!')
+    sys.exit(0)
+
   toppost.sort(reverse = True, key = sortfunc)
 
   found = False
