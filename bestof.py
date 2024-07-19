@@ -16,7 +16,7 @@ from pythorhead import Lemmy
 from pythorhead.types import SortType
 
 def sortfunc(e):
-  return e['score']
+  return e['score']['score']
 
 def get_commlist(cfg):
   try:
@@ -173,7 +173,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
         toppost.append(0)
         toppost[topposts] = {}
         toppost[topposts]['post'] = p['post']
-        toppost[topposts]['score'] = p['counts']['score']
+        toppost[topposts]['score'] = p['counts']
         toppost[topposts]['community'] = comm
         toppost[topposts]['comminfo'] = p['community']
         toppost[topposts]['author'] = p['creator']
@@ -241,7 +241,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
             toppost.append(0)
             toppost[topposts] = {}
             toppost[topposts]['post'] = p['post']
-            toppost[topposts]['score'] = p['counts']['score']
+            toppost[topposts]['score'] = p['counts']
             toppost[topposts]['community'] = comm
             toppost[topposts]['comminfo'] = p['community']
             toppost[topposts]['author'] = p['creator']
@@ -284,7 +284,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
       title = p['comminfo']['title'].strip()
       if n > 1:
         posttext += '\n----\n'
-      posttext = posttext + f"### {n}. {emoji} [{p['post']['name']}]({lemmyverselink}) {nsfw_txt} ([direct link]({p['post']['ap_id']})) ({p['score']})\n\nfrom **{title}** (!{p['community']}) {shield}\n\n"
+      posttext = posttext + f"### {n}. {emoji} [{p['post']['name']}]({lemmyverselink}) {nsfw_txt} ([direct link]({p['post']['ap_id']})) (👍{p['score']['upvotes']}  👎{p['score']['downvotes']})\n\nfrom **{title}** (!{p['community']}) {shield}\n\n"
     else:
       posttext = posttext + f'\n----\n# Inactive communities 👻\n\nThese communities have had no posts in the last week:\n\n'
       for c in nopostsc:
