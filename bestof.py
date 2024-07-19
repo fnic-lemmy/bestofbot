@@ -114,7 +114,6 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
     sys.exit(1)
 
   for comm in communities:
-    print(comm)
     try:
       community_id = lemmy.discover_community(comm)
     except Exception as e:
@@ -136,7 +135,8 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
 
       if (len(posts) > 0):
         for p in posts:
-          if p['post']['nsfw'] is True:
+          print(p)
+          if ('nsfw' in p['post']) and (p['post']['nsfw']) is True:
             if nsfw_b == 2:
               continue
 
