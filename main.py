@@ -29,7 +29,11 @@ def main(user, pw, inst, comm, cfg, title, imgs, nsfw, moduser, modpw, gist, ght
     if imgs == 1:
       io = True
 
-    contents = bestof.run(user, pw, inst, comm, cfg, title, io, nsfw, moduser, modpw, tldr_api, smmry_api)
+    try:
+      contents = bestof.run(user, pw, inst, comm, cfg, title, io, nsfw, moduser, modpw, tldr_api, smmry_api)
+    except Exception as e:
+      print(f'err: {e}')
+
     if contents is not None:
       fn = cfg.split('/')[1].split('.')[0]
       gh.gist_update(f'{fn}.md', contents, gist, ghtoken)
