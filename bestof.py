@@ -148,6 +148,9 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
               else:
                 mime, encoding = mimetypes.guess_type(p['post']['url'])
                 print(f'guessed {mime} for {p["post"]["id"]}')
+                if mime is None:
+                  found = True
+                  break
               # we accept application/octet-stream as cara seems to return it lots, and text/html
               # as Lemmy seems to get a bit confused and use this sometimes.
               if(mime[:5] != "image") and (mime[:11] != "application"):
@@ -155,7 +158,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
               if (mime[:9] != "text/html"):
                 # 2nd opinion
                 contenttype, encoding = mimetypes.guess_type(p['post']['url'])
-                if contenttype[:5] != "image":
+                if (contenttype is not None) and contenttype[:5] != "image":
                   continue
 
             found = True
