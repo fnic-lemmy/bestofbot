@@ -20,10 +20,13 @@ def sortfunc(e):
   return e['score']['score']
 
 def get_contenttype(url):
-  r = requests.head(url, allow_redirects=True)
-  ct = r.headers['Content-Type']
-  print(f'content-type retrieved from URL: {ct}')
-  return ct
+  try:
+    r = requests.head(url, allow_redirects=True, headers={"User-Agent":"Mozilla/5.0"})
+    ct = r.headers['Content-Type']
+    print(f'content-type retrieved from URL: {ct}')
+    return ct
+  except Exception as e:
+    print(f'err getting remote content-type: {e}')
 
 def get_commlist(cfg):
   try:
@@ -147,13 +150,12 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
               continue
 
           if('url' in p['post']):
-            #print(p['post'])
             if images_only is True:
               if 'url_content_type' in p['post']:
                 # if there's no url_content_type we accept it regardless
                 mime = p['post']['url_content_type']
               else:
-                mime = get_contenttype(url)
+                mime = get_contenttype(p['post']['url'])
                 if mime is None:
                   mime, encoding = mimetypes.guess_type(p['post']['url'])
                   print(f'guessed {mime} for {p["post"]["id"]}')
@@ -164,7 +166,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
               # as Lemmy seems to get a bit confused and use this sometimes.
               if(mime[:5] != "image") and (mime[:11] != "application"):
                 continue
-              if (mime[:9] != "text/html"):
+              if (mime[:9] == "text/html"):
                 # 2nd opinion
                 contenttype = get_contenttype(p['post']['url'])
                 if contenttype is None:
