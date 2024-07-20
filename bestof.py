@@ -9,6 +9,7 @@ import tldr
 import smmry
 import yt
 import news
+import requests
 import urllib.parse
 import datetime
 from urllib.parse import urlparse
@@ -17,6 +18,12 @@ from pythorhead.types import SortType
 
 def sortfunc(e):
   return e['score']['score']
+
+def get_contenttype(url):
+  r = requests.head(url, allow_redirects=True)
+  ct = r.headers['Content-Type']
+  print(f'content-type retrieved from URL: {ct}')
+  return ct
 
 def get_commlist(cfg):
   try:
@@ -146,18 +153,22 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
                 # if there's no url_content_type we accept it regardless
                 mime = p['post']['url_content_type']
               else:
-                mime, encoding = mimetypes.guess_type(p['post']['url'])
-                print(f'guessed {mime} for {p["post"]["id"]}')
+                mime = get_contenttype(url)
                 if mime is None:
-                  found = True
-                  break
+                  mime, encoding = mimetypes.guess_type(p['post']['url'])
+                  print(f'guessed {mime} for {p["post"]["id"]}')
+                  if mime is None:
+                    found = True
+                    break
               # we accept application/octet-stream as cara seems to return it lots, and text/html
               # as Lemmy seems to get a bit confused and use this sometimes.
               if(mime[:5] != "image") and (mime[:11] != "application"):
                 continue
               if (mime[:9] != "text/html"):
                 # 2nd opinion
-                contenttype, encoding = mimetypes.guess_type(p['post']['url'])
+                contenttype = get_contenttype(p['post']['url'])
+                if contenttype is None:
+                  contenttype, encoding = mimetypes.guess_type(p['post']['url'])
                 if (contenttype is not None) and contenttype[:5] != "image":
                   continue
 
