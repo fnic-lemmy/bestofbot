@@ -33,6 +33,12 @@ gc_deploy_quick "music" "0" "🎵❗Top Music (General discussion) posts of the 
 gc_deploy "music" "0" "🎵❗Top Music (Genres) posts of the week❗🎵" "music-genres"
 gc_deploy "gaming" "0" "❗Top Gaming (Platforms) posts of the week❗" "gaming-platforms"
 gc_deploy "gaming" "0" "❗Top Gaming (Genres) posts of the week❗" "gaming-genres"
+gc_deploy "gaming" "0" "❗Top Gaming (General) posts of the week❗" "gaming-general"
+gc_deploy "memes" "0" "❗Top Memes (General) posts of the week❗" "memes-general"
+gc_deploy "memes" "0" "❗Top Memes (News) posts of the week❗" "memes-news"
+gc_deploy "memes" "0" "❗Top Memes (Shows) posts of the week❗" "memes-shows"
+gc_deploy "memes" "0" "❗Top Memes (Games) posts of the week❗" "memes-games"
+gc_deploy "memes" "0" "❗Top Memes (Social Media) posts of the week❗" "memes-social"
 
 gcloud run jobs deploy bestofbot-anime --project=$project --region=$region --source . --set-env-vars=BOTUSER="moebot",BOTINSTANCE="ani.social",COMMUNITY="$comm",COMMLIST="configs/anime.json",IMAGES_ONLY=1,NSFW_BEHAVIOUR=1,GIST=$gist,POSTTITLE="💢❗Top Anime Art posts of the week❗💢" --set-secrets="BOTPW=moebot:latest,GHTOKEN=$ghtoken" &
 wait
