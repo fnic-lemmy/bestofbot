@@ -13,7 +13,7 @@ gc_deploy() {
 
 gc_deploy_quick() {
   if [ -z "$3" ]; then
-    title="❗Top $1 posts of the week❗"
+    title="❗Top $1 posts of the month❗"
   else
     title="$3"
   fi
@@ -21,24 +21,24 @@ gc_deploy_quick() {
   gc_deploy "$1" "$2" "$title" "$1"
 }
 
-gc_deploy_quick "fnic" "1" "💭 ❗Top Imaginary Network posts of the week❗ 💭"
-gc_deploy_quick "generalart" "1" "🎨 ❗Top General Artworks posts of the week❗ 🎨"
-gc_deploy_quick "photo" "1" "📷❗Top Photography posts of the week❗📷"
-gc_deploy_quick "themes" "0" "🖼️❗Top Themes posts of the week❗🖼️"
+gc_deploy_quick "fnic" "1" "💭 ❗Top Imaginary Network posts of the month❗ 💭"
+gc_deploy_quick "generalart" "1" "🎨 ❗Top General Artworks posts of the month❗ 🎨"
+gc_deploy_quick "photo" "1" "📷❗Top Photography posts of the month❗📷"
+gc_deploy_quick "themes" "0" "🖼️❗Top Themes posts of the month❗🖼️"
 gc_deploy_quick "comics" "1"
 gc_deploy_quick "wallpapers" "1"
-gc_deploy_quick "ai" "0" "❗Top AI Art posts of the week❗"
+gc_deploy_quick "ai" "0" "❗Top AI Art posts of the month❗"
 gc_deploy_quick "animals" "0"
-gc_deploy_quick "music" "0" "🎵❗Top Music (General discussion) posts of the week❗🎵"
-gc_deploy "music" "0" "🎵❗Top Music (Genres) posts of the week❗🎵" "music-genres"
-gc_deploy "gaming" "0" "❗Top Gaming (Platforms) posts of the week❗" "gaming-platforms"
-gc_deploy "gaming" "0" "❗Top Gaming (Genres) posts of the week❗" "gaming-genres"
-gc_deploy "gaming" "0" "❗Top Gaming (General) posts of the week❗" "gaming-general"
-gc_deploy "memes" "0" "❗Top Memes (General) posts of the week❗" "memes-general"
-gc_deploy "memes" "0" "❗Top Memes (News) posts of the week❗" "memes-news"
-gc_deploy "memes" "0" "❗Top Memes (Shows) posts of the week❗" "memes-shows"
-gc_deploy "memes" "0" "❗Top Memes (Games) posts of the week❗" "memes-games"
-gc_deploy "memes" "0" "❗Top Memes (Social Media) posts of the week❗" "memes-social"
+gc_deploy_quick "music" "0" "🎵❗Top Music (General discussion) posts of the month❗🎵"
+gc_deploy "music" "0" "🎵❗Top Music (Genres) posts of the month❗🎵" "music-genres"
+gc_deploy "gaming" "0" "❗Top Gaming (Platforms) posts of the month❗" "gaming-platforms"
+gc_deploy "gaming" "0" "❗Top Gaming (Genres) posts of the month❗" "gaming-genres"
+gc_deploy "gaming" "0" "❗Top Gaming (General) posts of the month❗" "gaming-general"
+gc_deploy "memes" "0" "❗Top Memes (General) posts of the month❗" "memes-general"
+gc_deploy "memes" "0" "❗Top Memes (News) posts of the month❗" "memes-news"
+gc_deploy "memes" "0" "❗Top Memes (Shows) posts of the month❗" "memes-shows"
+gc_deploy "memes" "0" "❗Top Memes (Games) posts of the month❗" "memes-games"
+gc_deploy "memes" "0" "❗Top Memes (Social Media) posts of the month❗" "memes-social"
 
-gcloud run jobs deploy bestofbot-anime --project=$project --region=$region --source . --set-env-vars=BOTUSER="moebot",BOTINSTANCE="ani.social",COMMUNITY="$comm",COMMLIST="configs/anime.json",IMAGES_ONLY=1,NSFW_BEHAVIOUR=1,GIST=$gist,POSTTITLE="💢❗Top Anime Art posts of the week❗💢" --set-secrets="BOTPW=moebot:latest,GHTOKEN=$ghtoken" &
+gcloud run jobs deploy bestofbot-anime --project=$project --region=$region --source . --set-env-vars=BOTUSER="moebot",BOTINSTANCE="ani.social",COMMUNITY="$comm",COMMLIST="configs/anime.json",IMAGES_ONLY=1,NSFW_BEHAVIOUR=1,GIST=$gist,POSTTITLE="💢❗Top Anime Art posts of the month❗💢" --set-secrets="BOTPW=moebot:latest,GHTOKEN=$ghtoken" &
 wait
