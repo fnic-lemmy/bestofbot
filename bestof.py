@@ -207,6 +207,16 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
 
   if len(toppost) == 0:
     print('no active communities!')
+    try:
+      user = lemmy.user.get(username=f'{mod_user}@{instance}')
+    except Exception as e:
+      print(f'err looking up user {mod_user}@{instance}: {e}')
+
+    if user is not None: 
+      try:
+        lemmy.private_message.create(content = f'{post_title} was not posted due to no active communities.', recipient_id=user["person_view"]["person"]["id"])
+      except Exception as e:
+        print(f'err sending PM to {mod_user}@{instance}: {e}')
     sys.exit(0)
 
   print('sorting...')
