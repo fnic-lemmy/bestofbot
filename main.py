@@ -1,7 +1,6 @@
 import sys
 import os
 import bestof
-import gh
 
 # Retrieve Job-defined env vars
 TASK_INDEX = os.getenv("CLOUD_RUN_TASK_INDEX", 0)
@@ -30,10 +29,6 @@ def main(user, pw, inst, comm, cfg, title, imgs, nsfw, moduser, modpw, gist, ght
       io = True
 
     contents = bestof.run(user, pw, inst, comm, cfg, title, io, nsfw, moduser, modpw, tldr_api, smmry_api)
-
-    if contents is not None:
-      fn = cfg.split('/')[1].split('.')[0]
-      gh.gist_update(f'{fn}.md', contents, gist, ghtoken)
 
     return "bestofbot"
 
