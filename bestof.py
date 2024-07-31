@@ -137,7 +137,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
         print(f'cannot follow {comm}: {e}\n')
 
       try:
-        posts = lemmy.post.list(community_id = community_id, limit = 5, sort = SortType.TopWeek)
+        posts = lemmy.post.list(community_id = community_id, limit = 5, sort = SortType.TopMonth)
       except Exception as e:
         print(f'cannot get posts for {comm}: {e}\n')
 
@@ -197,7 +197,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
         topposts += 1
 
       if found is not True:
-        print(f"no posts in {comm} this week")
+        print(f"no posts in {comm} this month")
         nopostsc.append(0)
         nopostsc[noposts] = comm
         noposts += 1
@@ -230,7 +230,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
     except:
       print(f'cannot discover {comm}: {e}\n')
     if community_id is not None:
-      for sorttype in [SortType.TopMonth, SortType.TopYear, SortType.TopAll]:
+      for sorttype in [SortType.TopYear, SortType.TopAll]:
         try:
           posts = lemmy.post.list(community_id = community_id, limit = 5, sort = sorttype)
         except Exception as e:
@@ -314,7 +314,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
         posttext += '\n----\n'
       posttext = posttext + f"### {n}. {emoji} [{p['post']['name']}]({lemmyverselink}) {nsfw_txt} ([direct link]({p['post']['ap_id']})) (👍{p['score']['upvotes']}  👎{p['score']['downvotes']})\n\nfrom **{title}** (!{p['community']}) {shield}\n\n"
     else:
-      posttext = posttext + f'\n----\n# Inactive communities 👻\n\nThese communities have had no posts in the last week:\n\n'
+      posttext = posttext + f'\n----\n# Inactive communities 👻\n\nThese communities have had no posts in the last month:\n\n'
       for c in nopostsc:
         shield = gen_shield(c)
         comminfo = get_comminfo(lemmy, c)
@@ -407,7 +407,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
       return posttext
 
     try:
-      comment = lemmy.comment.create(post["post_view"]["post"]["id"], "Please comment under the original posts.  \n\nThe descriptions of the inactive communities are auto-generated, it will pick up the first non-header line from the sidebar.\n\nIf you have a comment about the weekly posts please create a [META] post in the community.  Thanks!")
+      comment = lemmy.comment.create(post["post_view"]["post"]["id"], "Please comment under the original posts.  \n\nThe descriptions of the inactive communities are auto-generated, it will pick up the first non-header line from the sidebar.\n\nIf you have a comment about the monthly posts please create a [META] post in the community.  Thanks!")
     except Exception as e:
       print(f'cannot post comment, exception = {e}\n')
       # not critical - continue
