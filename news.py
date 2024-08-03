@@ -3,7 +3,10 @@ from newspaper import Article
 
 def article_image(url):
   article = Article(url)
-  article.download()
+  try:
+    article.download()
+  except Exception as e:
+    return None
   article.parse()
   if article.top_image is not None:
     return f'![]({article.top_image})\n\n'
