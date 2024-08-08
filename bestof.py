@@ -298,7 +298,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
       else:
         emoji = '📰'
     else:
-      emoji = '🗩'
+      emoji = '💬'
 
     # set nsfw tag
     if p['post']['nsfw'] is True:
