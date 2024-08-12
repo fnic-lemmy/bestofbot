@@ -34,11 +34,11 @@ gc_deploy "music" "0" "🎵❗Top Music (Genres) posts of the month❗🎵" "mus
 gc_deploy "gaming" "0" "❗Top Gaming (Platforms) posts of the month❗" "gaming-platforms"
 gc_deploy "gaming" "0" "❗Top Gaming (Genres) posts of the month❗" "gaming-genres"
 gc_deploy "gaming" "0" "❗Top Gaming (General) posts of the month❗" "gaming-general"
-gc_deploy "memes" "0" "❗Top Memes (General) posts of the month❗" "memes-general"
-gc_deploy "memes" "0" "❗Top Memes (News) posts of the month❗" "memes-news"
-gc_deploy "memes" "0" "❗Top Memes (Shows) posts of the month❗" "memes-shows"
-gc_deploy "memes" "0" "❗Top Memes (Games) posts of the month❗" "memes-games"
-gc_deploy "memes" "0" "❗Top Memes (Social Media) posts of the month❗" "memes-social"
+gc_deploy "memes" "1" "❗Top Memes (General) posts of the month❗" "memes-general"
+gc_deploy "memes" "1" "❗Top Memes (News) posts of the month❗" "memes-news"
+gc_deploy "memes" "1" "❗Top Memes (Shows) posts of the month❗" "memes-shows"
+gc_deploy "memes" "1" "❗Top Memes (Games) posts of the month❗" "memes-games"
+gc_deploy "memes" "1" "❗Top Memes (Social Media) posts of the month❗" "memes-social"
 
 gcloud run jobs deploy bestofbot-anime --project=$project --region=$region --source . --set-env-vars=BOTUSER="moebot",BOTINSTANCE="ani.social",COMMUNITY="$comm",COMMLIST="configs/anime.json",IMAGES_ONLY=1,NSFW_BEHAVIOUR=1,GIST=$gist,POSTTITLE="💢❗Top Anime Art posts of the month❗💢" --set-secrets="BOTPW=moebot:latest,GHTOKEN=$ghtoken" &
 wait
