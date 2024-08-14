@@ -332,6 +332,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
     if(images_only is True) or ("url" in p['post'] and (("url_content_type" not in p['post']) or (("url_content_type" in p['post']) and (p['post']['url_content_type'][:5] == "image")))):
       posttext = posttext + f"![]({p['post']['url']})\n\n"
     elif "url" in p['post']:
+      print(f"* {p['post']['name']} - {p['post']['url']}")
       if "url_content_type" in p['post']:
         if p['post']['url_content_type'][:9] == 'text/html':
           # try youtube
@@ -348,7 +349,11 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
             else:
               # use news3k to get an article image
               print('news...')
-              t = news.article_image(p['post']['url'])
+              try:
+                t = news.article_image(p['post']['url'])
+              except Exception as e:
+                print(f'failed to use news3k to get article: {e}')
+                t = None
               if t is not None:
                 posttext += t
               # add title/desc from lemmy api
