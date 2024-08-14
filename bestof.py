@@ -6,6 +6,7 @@ import string
 import random
 import mimetypes
 import tldr
+import pipfeed
 import yt
 import news
 import requests
@@ -59,8 +60,8 @@ def extract_desc(ci):
   return "No description"
 
 def shorten_text(text):
-  if len(text) > 100:
-    return f'{text[:100]}...\n\n'
+  if len(text) > 200:
+    return f'{text[:200]}...\n\n'
   else:
     return text
 
@@ -89,7 +90,7 @@ def gen_shield(c):
   return f'![{serv}](https://img.shields.io/{serv}/{cenc}?style=flat&label=Subs&color=pink)'
 
 
-def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, moduser, modpw, tldrkey):
+def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, moduser, modpw, rapidkey):
   topposts = 0
   toppost = []
 
@@ -342,28 +343,33 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
           else:
             # run through tldr
             print('tldr...')
-            t = tldr.tldrthis(tldrkey, p['post']['url'])
+            t = tldr.tldrthis(rapidkey, p['post']['url'])
             if t is not None:
               posttext += t
             else:
-              # use news3k to get an article image
-              print('news...')
-              try:
-                t = news.article_image(p['post']['url'])
-              except Exception as e:
-                print(f'failed to use news3k to get article: {e}')
-                t = None
-              if t is not None:
-                posttext += t
-              # add title/desc from lemmy api
-              print('lemmy fallback 1...')
-              t = add_embed(p['post'])
+              print('pipfeed...')
+              t = pipfeed.extract(rapidkey, p['post']['url'])
               if t is not None:
                 posttext += t
               else:
-                print('lemmy fallback 2...')
-                if 'body' in p['post']:
-                  posttext += shorten_text(p['post']['body'])
+                # use news3k to get an article image
+                print('news...')
+                try:
+                  t = news.article_image(p['post']['url'])
+                except Exception as e:
+                  print(f'failed to use news3k to get article: {e}')
+                  t = None
+                if t is not None:
+                  posttext += t
+                # add title/desc from lemmy api
+                print('lemmy fallback 1...')
+                t = add_embed(p['post'])
+                if t is not None:
+                  posttext += t
+                else:
+                  print('lemmy fallback 2...')
+                  if 'body' in p['post']:
+                    posttext += shorten_text(p['post']['body'])
       else:
         '''no content type'''
         t = add_embed(p['post'])
