@@ -6,7 +6,6 @@ import string
 import random
 import mimetypes
 import tldr
-import smmry
 import yt
 import news
 import requests
@@ -90,7 +89,7 @@ def gen_shield(c):
   return f'![{serv}](https://img.shields.io/{serv}/{cenc}?style=flat&label=Subs&color=pink)'
 
 
-def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, moduser, modpw, tldrkey, smmrykey):
+def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, moduser, modpw, tldrkey):
   topposts = 0
   toppost = []
 
@@ -357,19 +356,14 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
               if t is not None:
                 posttext += t
               # add title/desc from lemmy api
-              print('lemmy fallback...')
+              print('lemmy fallback 1...')
               t = add_embed(p['post'])
               if t is not None:
                 posttext += t
               else:
-                # use smmry
-                print('smmry...')
-                t = smmry.smmry(smmrykey, p['post']['url'], True)
-                if t is not None:
-                  posttext += t
-                else:
-                  if 'body' in p['post']:
-                    posttext += shorten_text(p['post']['body'])
+                print('lemmy fallback 2...')
+                if 'body' in p['post']:
+                  posttext += shorten_text(p['post']['body'])
       else:
         '''no content type'''
         t = add_embed(p['post'])
@@ -384,12 +378,8 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
             posttext += shorten_text(p['post']['body'])
     else:
       '''not url'''
-      t = smmry.smmry(smmrykey, p['post']['ap_id'], False)
-      if t is not None:
-        posttext += t
-      else:
-        if 'body' in p['post']:
-          posttext += shorten_text(p['post']['body'])
+      if 'body' in p['post']:
+        posttext += shorten_text(p['post']['body'])
 
     posttext = posttext + f"Posted by [{p['author']['name']}]({p['author']['actor_id']})\n\n"
   

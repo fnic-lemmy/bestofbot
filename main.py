@@ -19,16 +19,15 @@ MODPW = os.getenv("MODPW", 0)
 GIST = os.getenv("GIST", 0)
 GHTOKEN = os.getenv("GHTOKEN", 0)
 TLDRTHIS_APIKEY = os.getenv("TLDRTHIS_API", 0)
-SMMRY_APIKEY = os.getenv("SMMRY_API", 0)
 
-def main(user, pw, inst, comm, cfg, title, imgs, nsfw, moduser, modpw, gist, ghtoken, tldr_api, smmry_api):
+def main(user, pw, inst, comm, cfg, title, imgs, nsfw, moduser, modpw, gist, ghtoken, tldr_api):
 
     io = False
 
     if imgs == 1:
       io = True
 
-    contents = bestof.run(user, pw, inst, comm, cfg, title, io, nsfw, moduser, modpw, tldr_api, smmry_api)
+    contents = bestof.run(user, pw, inst, comm, cfg, title, io, nsfw, moduser, modpw, tldr_api)
 
     return "bestofbot"
 
@@ -36,7 +35,7 @@ def main(user, pw, inst, comm, cfg, title, imgs, nsfw, moduser, modpw, gist, ght
 if __name__ == "__main__":
     try:
         main(BOTUSER, BOTPW, BOTINSTANCE, POSTCOMMUNITY, COMMUNITIES, TITLE,
-             int(IMAGESONLY), int(NSFW), MODUSER, MODPW, GIST, GHTOKEN, TLDRTHIS_APIKEY, SMMRY_APIKEY)
+             int(IMAGESONLY), int(NSFW), MODUSER, MODPW, GIST, GHTOKEN, TLDRTHIS_APIKEY)
     except Exception as err:
         message = (
             f"Task #{TASK_INDEX}, " + f"Attempt #{TASK_ATTEMPT} failed: {str(err)}"
