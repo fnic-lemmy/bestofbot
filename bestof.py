@@ -335,25 +335,30 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
       if "url_content_type" in p['post']:
         if p['post']['url_content_type'][:9] == 'text/html':
           # try youtube
+          print('youtube...')
           t = yt.get(p['post']['url'])
           if t is not None:
             posttext += t
           else:
             # run through tldr
+            print('tldr...')
             t = tldr.tldrthis(tldrkey, p['post']['url'])
             if t is not None:
               posttext += t
             else:
               # use news3k to get an article image
+              print('news...')
               t = news.article_image(p['post']['url'])
               if t is not None:
                 posttext += t
               # add title/desc from lemmy api
+              print('lemmy fallback...')
               t = add_embed(p['post'])
               if t is not None:
                 posttext += t
               else:
                 # use smmry
+                print('smmry...')
                 t = smmry.smmry(smmrykey, p['post']['url'], True)
                 if t is not None:
                   posttext += t
