@@ -9,7 +9,7 @@ ghtoken="gh-fnic-bot-gist:latest"
 nsfw="2"
 
 gc_deploy() {
-  gcloud run jobs deploy bestofbot-$4 --project=$project --region=$region --source . --set-env-vars=BOTUSER="best_of_$1_bot",BOTINSTANCE="lemmy.dbzer0.com",COMMUNITY="$comm",COMMLIST="configs/$4.json",MODUSER="$mod_user",IMAGES_ONLY=$2,NSFW_BEHAVIOUR=$5,GIST=$gist,POSTTITLE="$3" --set-secrets="BOTPW=best_of_$1_bot:latest,MODPW=$mod_pw,GHTOKEN=$ghtoken,TLDRTHIS_API=tldrthis:latest" &
+  gcloud run jobs deploy bestofbot-$4 --project=$project --region=$region --source . --set-env-vars=BOTUSER="best_of_$1_bot",BOTINSTANCE="lemmy.dbzer0.com",COMMUNITY="$comm",COMMLIST="configs/$4.json",MODUSER="$mod_user",IMAGES_ONLY=$2,NSFW_BEHAVIOUR=$5,GIST=$gist,POSTTITLE="$3" --set-secrets="BOTPW=best_of_$1_bot:latest,MODPW=$mod_pw,GHTOKEN=$ghtoken,TLDRTHIS_API=rapidapi:latest" &
 }
 
 gc_deploy_quick() {
