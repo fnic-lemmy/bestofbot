@@ -4,6 +4,9 @@ import requests
 
 def extract(apikey, article_url):
 
+  if 'bandcamp.com' in article_url:
+    return None
+
   url = "https://news-article-data-extract-and-summarization1.p.rapidapi.com/extract/"
 
   payload = { "url": article_url }
