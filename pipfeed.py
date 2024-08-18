@@ -22,6 +22,8 @@ def extract(apikey, article_url):
 
   if "summary" in r:
     sum = ''
+    if r['summary'] is None:
+      return None
     for s in r['summary']:
       sum += f' {s}'
     sum += ' 🖊️'
