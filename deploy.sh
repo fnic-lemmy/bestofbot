@@ -36,7 +36,7 @@ gc_deploy "gaming" "0" "❗Top Gaming (Platforms) posts of the month❗" "gaming
 gc_deploy "gaming" "0" "❗Top Gaming (Genres) posts of the month❗" "gaming-genres" "$nsfw"
 gc_deploy "gaming" "0" "❗Top Gaming (General) posts of the month❗" "gaming-general" "$nsfw"
 gc_deploy "memes" "1" "❗Top Memes (General) posts of the month❗" "memes-general" "$nsfw"
-gc_deploy "memes" "1" "❗Top Memes (News) posts of the month❗" "memes-news" "$nsfw"
+gc_deploy "memes" "0" "❗Top Memes (News) posts of the month❗" "memes-news" "$nsfw"
 gc_deploy "memes" "1" "❗Top Memes (Shows) posts of the month❗" "memes-shows" "$nsfw"
 gc_deploy "memes" "1" "❗Top Memes (Games) posts of the month❗" "memes-games" "$nsfw"
 gc_deploy "memes" "1" "❗Top Memes (Social Media) posts of the month❗" "memes-social" "$nsfw"
