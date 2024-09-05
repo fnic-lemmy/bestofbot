@@ -1,10 +1,16 @@
 #!/usr/bin/python3
 
 import requests
+from urllib.parse import urlparse
+
+def check_url(check, url):
+  host = urlparse(url).hostname
+  if host and host.endswith(check):
+    return True
+  return False
 
 def extract(apikey, article_url):
-
-  if ('bandcamp.com' in article_url) or ('community.spotify.com' in article_url):
+  if check_url('.bandcamp.com', article_url) or check_url('community.spotify.com', article_url):
     return None
 
   url = "https://news-article-data-extract-and-summarization1.p.rapidapi.com/extract/"
