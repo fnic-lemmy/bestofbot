@@ -29,7 +29,7 @@ def tldrthis(apikey, article_url):
     if "article_image" in r:
       pt += f'![]({r["article_image"]})\n\n'
 
-    pt += f'*{r["article_title"]}*\n\n{r["summary"][0]} 🖋️\n\n'
+    pt += f'*{r["article_title"]}*\n\n{r["summary"][0]} 🖋️🤖\n\n'
 
     return pt
   return None

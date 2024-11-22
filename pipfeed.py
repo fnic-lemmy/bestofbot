@@ -32,7 +32,7 @@ def extract(apikey, article_url):
       return None
     for s in r['summary']:
       sum += f' {s}'
-    sum += ' 🖊️'
+    sum += ' 🖊️️🤖'
   elif "description" in r:
     sum = r['description']
   else:

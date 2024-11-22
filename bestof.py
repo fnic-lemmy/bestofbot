@@ -392,7 +392,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
   posttext += "\n\n----\n\nThe main links are using lemmyverse.link which should redirect to the post on your own instance. If you have not used this before, you may need to go direct to https://lemmyverse.link/ and click on 'configure instance'.  Some apps will open posts correctly when using the direct link."
 
   if images_only is not True:
-    posttext += "\n\n🖋️🖊️ indicates a summary generated using AI, this is experimental."
+    posttext += "\n\n️🤖 indicates a summary generated using AI - 🖋️ TLDR This, 🖊️ Pipfeed"
 
   print(posttext)
 
