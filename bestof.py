@@ -148,6 +148,9 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
           if ('nsfw' in p['post']) and (p['post']['nsfw']) is True:
             if nsfw_b == 2:
               continue
+              
+          if p['counts']['score'] < 0:
+            break
 
           if('url' in p['post']):
             if images_only is True:
