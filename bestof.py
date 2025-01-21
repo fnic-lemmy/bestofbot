@@ -109,7 +109,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
   post_title += f' ({today_text})'
   print(post_title)
 
-  skip_urls = ["rabbitea.rs", "file.coffee"]
+  skip_urls = ["rabbitea.rs", "file.coffee", "sffa.community"]
 
   lemmy = Lemmy(f'https://{instance}', raise_exceptions=True, request_timeout=30)
   try:
