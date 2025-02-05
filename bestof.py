@@ -334,7 +334,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
 
     if(images_only is True) or ("url" in p['post'] and (("url_content_type" not in p['post']) or (("url_content_type" in p['post']) and (p['post']['url_content_type'][:5] == "image")))):
       posttext = posttext + f"![]({p['post']['url']})\n\n"
-      if(images_only is not True:
+      if images_only is not True:
         posttext += shorten_text(p['post']['body'])
     elif "url" in p['post']:
       print(f"* {p['post']['name']} - {p['post']['url']}")
