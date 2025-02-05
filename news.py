@@ -17,5 +17,6 @@ def article_image(url):
     return f'![]({article.top_image})\n\n'
   #print(article.summary)
   #print(article.title)
+  #print(article.text)
 
   return None
