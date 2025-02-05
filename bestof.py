@@ -375,6 +375,10 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
                   print('lemmy fallback 2...')
                   if 'body' in p['post']:
                     posttext += shorten_text(p['post']['body'])
+        elif p['post']['url_content_type'][:6] == 'video/':
+          # embed video url
+          posttext = posttext + f"![]({p['post']['url']})\n\n"
+          posttext += shorten_text(p['post']['body'])
       else:
         '''no content type'''
         t = add_embed(p['post'])
