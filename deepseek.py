@@ -2,13 +2,13 @@
 
 import requests
 
-def shorten(text, key):
+def shorten(text, key, max_len):
   url = "https://deepseek-v3.p.rapidapi.com/chat"
 
   payload = { "messages": [
 		{
 			"role": "user",
-			"content": f"Please shorten the following text to less than 200 characters, only returning the shortened text: {text}"
+			"content": f"Please shorten the following text to less than {max_len} characters, only returning the shortened text:\n{text}"
 		}
 	] }
   headers = {
