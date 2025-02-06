@@ -9,6 +9,7 @@ import tldr
 import pipfeed
 import yt
 import news
+import deepseek
 import requests
 import urllib.parse
 import datetime
@@ -59,8 +60,15 @@ def extract_desc(ci):
 
   return "No description"
 
-def shorten_text(text):
+def shorten_text(text, deepseek_key):
   if len(text) > 200:
+    print('shorten...')
+    try:
+      t = deepseek.shorten(text, deepseek_key)
+      t = f'{t} [ds]'
+      return t
+    except Exception as e:
+      print(f'deepseek raised exception: {e}')
     return f'{text[:200]}...\n\n'
   else:
     return text
@@ -335,7 +343,8 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
     if(images_only is True) or ("url" in p['post'] and (("url_content_type" not in p['post']) or (("url_content_type" in p['post']) and (p['post']['url_content_type'][:5] == "image")))):
       posttext = posttext + f"![]({p['post']['url']})\n\n"
       if images_only is not True:
-        posttext += shorten_text(p['post']['body'])
+        if 'body' in p['post']:
+          posttext += shorten_text(p['post']['body'], rapidkey)
     elif "url" in p['post']:
       print(f"* {p['post']['name']} - {p['post']['url']}")
       if "url_content_type" in p['post']:
@@ -374,11 +383,12 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
                 else:
                   print('lemmy fallback 2...')
                   if 'body' in p['post']:
-                    posttext += shorten_text(p['post']['body'])
+                    posttext += shorten_text(p['post']['body'], rapidkey)
         elif p['post']['url_content_type'][:6] == 'video/':
           # embed video url
           posttext = posttext + f"![]({p['post']['url']})\n\n"
-          posttext += shorten_text(p['post']['body'])
+          if 'body' in p['post']:
+            posttext += shorten_text(p['post']['body'], rapidkey)
       else:
         '''no content type'''
         t = add_embed(p['post'])
@@ -390,11 +400,11 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
           if t is not None:
             posttext += t
           if 'body' in p['post']:
-            posttext += shorten_text(p['post']['body'])
+            posttext += shorten_text(p['post']['body'], rapidkey)
     else:
       '''not url'''
       if 'body' in p['post']:
-        posttext += shorten_text(p['post']['body'])
+        posttext += shorten_text(p['post']['body'], rapidkey)
 
     posttext = posttext + f"Posted by [{p['author']['name']}]({p['author']['actor_id']})\n\n"
   
