@@ -8,7 +8,7 @@ def shorten(text, key, max_len):
   payload = { "messages": [
 		{
 			"role": "user",
-			"content": f"Please shorten the following text to less than {max_len} characters, and only return the shortened text, do not attempt to interpret it:\n{text}"
+			"content": f"Shorten the following text to {max_len} characters. Return only the shortened text without adding, interpreting, or modifying the meaning. Do not include explanations or notes. Text:\n{text}"
 		}
 	] }
   headers = {
