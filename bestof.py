@@ -66,13 +66,13 @@ def shorten_text(text, deepseek_key):
     print('shorten...')
     try:
       t = deepseek.shorten(text, deepseek_key, max_len)
-      t = f'{t} 🖍🤖'
+      t = f'{t} 🖍🤖\n\n'
       return t
     except Exception as e:
       print(f'deepseek raised exception: {e}')
     return f'{text[:297]}...\n\n' # NB: three less than max_len
   else:
-    return text
+    return f'{text}\n\n'
 
 def add_embed(p):
   if "embed_title" in p:
