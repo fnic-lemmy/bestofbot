@@ -16,18 +16,18 @@ IMAGESONLY = os.getenv("IMAGES_ONLY", 0)
 NSFW = os.getenv("NSFW_BEHAVIOUR", 0)
 MODUSER = os.getenv("MODUSER",0)
 MODPW = os.getenv("MODPW", 0)
-GIST = os.getenv("GIST", 0)
+GHREPO = os.getenv("GHREPO", 0)
 GHTOKEN = os.getenv("GHTOKEN", 0)
 TLDRTHIS_APIKEY = os.getenv("TLDRTHIS_API", 0)
 
-def main(user, pw, inst, comm, cfg, title, imgs, nsfw, moduser, modpw, gist, ghtoken, tldr_api):
+def main(user, pw, inst, comm, cfg, title, imgs, nsfw, moduser, modpw, ghrepo, ghtoken, tldr_api):
 
     io = False
 
     if imgs == 1:
       io = True
 
-    contents = bestof.run(user, pw, inst, comm, cfg, title, io, nsfw, moduser, modpw, tldr_api)
+    contents = bestof.run(user, pw, inst, comm, cfg, title, io, nsfw, moduser, modpw, tldr_api, ghtoken, ghrepo)
 
     return "bestofbot"
 
@@ -35,7 +35,7 @@ def main(user, pw, inst, comm, cfg, title, imgs, nsfw, moduser, modpw, gist, ght
 if __name__ == "__main__":
     try:
         main(BOTUSER, BOTPW, BOTINSTANCE, POSTCOMMUNITY, COMMUNITIES, TITLE,
-             int(IMAGESONLY), int(NSFW), MODUSER, MODPW, GIST, GHTOKEN, TLDRTHIS_APIKEY)
+             int(IMAGESONLY), int(NSFW), MODUSER, MODPW, GHREPO, GHTOKEN, TLDRTHIS_APIKEY)
     except Exception as err:
         message = (
             f"Task #{TASK_INDEX}, " + f"Attempt #{TASK_ATTEMPT} failed: {str(err)}"
