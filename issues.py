@@ -16,4 +16,4 @@ def raise_issue(ghtoken, ghrepo, title, desc):
       issue.create_comment(f'This has failed again.\n\n{desc}')
       return
 
-  i = repo.create_issue(title = title, body = desc, labels = [repo.get_label(name = "community")])
+  i = repo.create_issue(title = title, body = desc, labels = [repo.get_label(name = "Community Removal")])

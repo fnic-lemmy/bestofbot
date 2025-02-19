@@ -4,7 +4,7 @@ region="europe-west1"
 comm="lemmydirectory@lemmy.dbzer0.com"
 mod_user="fnicmodbot"
 mod_pw="fnicmodbot-dbzer0:latest"
-ghrepo="fnic-lemmy/bestofbot"
+ghrepo="fnic-lemmy/lemmy-directory"
 ghtoken="fnic-bot-issues:latest"
 nsfw="2"
 
