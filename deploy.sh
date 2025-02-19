@@ -4,12 +4,12 @@ region="europe-west1"
 comm="lemmydirectory@lemmy.dbzer0.com"
 mod_user="fnicmodbot"
 mod_pw="fnicmodbot-dbzer0:latest"
-gist="94127e24dc129210db8dfb819dd8d6b1"
-ghtoken="gh-fnic-bot-gist:latest"
+ghrepo="fnic-lemmy/bestofbot"
+ghtoken="fnic-bot-issues:latest"
 nsfw="2"
 
 gc_deploy() {
-  gcloud run jobs deploy bestofbot-$4 --project=$project --region=$region --source . --set-env-vars=BOTUSER="best_of_$1_bot",BOTINSTANCE="lemmy.dbzer0.com",COMMUNITY="$comm",COMMLIST="configs/$4.json",MODUSER="$mod_user",IMAGES_ONLY=$2,NSFW_BEHAVIOUR=$5,GIST=$gist,POSTTITLE="$3" --set-secrets="BOTPW=best_of_$1_bot:latest,MODPW=$mod_pw,GHTOKEN=$ghtoken,TLDRTHIS_API=rapidapi:latest" &
+  gcloud run jobs deploy bestofbot-$4 --project=$project --region=$region --source . --set-env-vars=BOTUSER="best_of_$1_bot",BOTINSTANCE="lemmy.dbzer0.com",COMMUNITY="$comm",COMMLIST="configs/$4.json",MODUSER="$mod_user",IMAGES_ONLY=$2,NSFW_BEHAVIOUR=$5,GHREPO="$ghrepo",POSTTITLE="$3" --set-secrets="BOTPW=best_of_$1_bot:latest,MODPW=$mod_pw,GHTOKEN=$ghtoken,TLDRTHIS_API=rapidapi:latest" &
 }
 
 gc_deploy_quick() {
@@ -41,5 +41,5 @@ gc_deploy "memes" "1" "❗Top Memes (Shows) posts of the month❗" "memes-shows"
 gc_deploy "memes" "1" "❗Top Memes (Games) posts of the month❗" "memes-games" "$nsfw"
 gc_deploy "memes" "1" "❗Top Memes (Social Media) posts of the month❗" "memes-social" "$nsfw"
 
-gcloud run jobs deploy bestofbot-anime --project=$project --region=$region --source . --set-env-vars=BOTUSER="moebot",BOTINSTANCE="ani.social",COMMUNITY="$comm",COMMLIST="configs/anime.json",IMAGES_ONLY=1,NSFW_BEHAVIOUR=1,GIST=$gist,POSTTITLE="💢❗Top Anime Art posts of the month❗💢" --set-secrets="BOTPW=moebot:latest,GHTOKEN=$ghtoken" &
+gcloud run jobs deploy bestofbot-anime --project=$project --region=$region --source . --set-env-vars=BOTUSER="moebot",BOTINSTANCE="ani.social",COMMUNITY="$comm",COMMLIST="configs/anime.json",IMAGES_ONLY=1,NSFW_BEHAVIOUR=1,GHREPO="$ghrepo",POSTTITLE="💢❗Top Anime Art posts of the month❗💢" --set-secrets="BOTPW=moebot:latest,GHTOKEN=$ghtoken" &
 wait

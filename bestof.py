@@ -13,6 +13,7 @@ import deepseek
 import requests
 import urllib.parse
 import datetime
+import issues
 from urllib.parse import urlparse
 from pythorhead import Lemmy
 from pythorhead.types import SortType
@@ -99,7 +100,7 @@ def gen_shield(c):
   return f'![{serv}](https://img.shields.io/{serv}/{cenc}?style=flat&label=Subs&color=pink)'
 
 
-def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, moduser, modpw, rapidkey):
+def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, moduser, modpw, rapidkey, ghtoken, ghrepo):
   topposts = 0
   toppost = []
 
@@ -137,6 +138,10 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
       community_id = lemmy.discover_community(comm)
     except Exception as e:
       print(f'discover {comm} failed: {e}\n')
+      try:
+        issues.raise_issue(ghtoken, ghrepo, f'Remove {comm}', f'discover_community returned:\n\n```\n{e}\n```\n')
+      except Exception as ghe:
+        print(f'error raising github issue: {ghe}\n')
       continue # skip communities we can't find
 
     if community_id is not None:
