@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 from github import Github
 from github import Auth
-from github import Repository
 
 def raise_issue(ghtoken, ghrepo, title, desc):
 
