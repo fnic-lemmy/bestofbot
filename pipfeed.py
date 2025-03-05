@@ -10,7 +10,7 @@ def check_url(check, url):
   return False
 
 def extract(apikey, article_url):
-  if check_url('.bandcamp.com', article_url) or check_url('community.spotify.com', article_url) or check_url('on.soundcloud.com', article_url):
+  if check_url('.bandcamp.com', article_url) or check_url('.spotify.com', article_url) or check_url('on.soundcloud.com', article_url):
     return None
 
   url = "https://news-article-data-extract-and-summarization1.p.rapidapi.com/extract/"
