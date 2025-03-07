@@ -6,7 +6,6 @@ import string
 import random
 import mimetypes
 import tldr
-import pipfeed
 import yt
 import news
 import deepseek
@@ -14,6 +13,7 @@ import requests
 import urllib.parse
 import datetime
 import issues
+import shorten
 from urllib.parse import urlparse
 from pythorhead import Lemmy
 from pythorhead.types import SortType
@@ -60,20 +60,6 @@ def extract_desc(ci):
           return l
 
   return "No description"
-
-def shorten_text(text, deepseek_key):
-  max_len = 300
-  if len(text) > max_len:
-    print('shorten...')
-    try:
-      t = deepseek.shorten(text, deepseek_key, max_len)
-      t = f'{t} 🖍🤖\n\n'
-      return t
-    except Exception as e:
-      print(f'deepseek raised exception: {e}')
-    return f'{text[:297]}...\n\n' # NB: three less than max_len
-  else:
-    return f'{text}\n\n'
 
 def add_embed(p):
   if "embed_title" in p:
@@ -350,7 +336,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
       posttext = posttext + f"![]({p['post']['url']})\n\n"
       if images_only is not True:
         if 'body' in p['post']:
-          posttext += shorten_text(p['post']['body'], rapidkey)
+          posttext += shorten.shorten_text(p['post']['body'], rapidkey)
     elif "url" in p['post']:
       print(f"* {p['post']['name']} - {p['post']['url']}")
       if "url_content_type" in p['post']:
@@ -367,20 +353,16 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
             if t is not None:
               posttext += t
             else:
-              print('pipfeed...')
-              t = pipfeed.extract(rapidkey, p['post']['url'])
+              # use news3k to get an article image
+              print('news...')
+              try:
+                t = news.article(p['post']['url'], rapidkey)
+              except Exception as e:
+                print(f'failed to use news3k to get article: {e}')
+                t = None
               if t is not None:
                 posttext += t
               else:
-                # use news3k to get an article image
-                print('news...')
-                try:
-                  t = news.article_image(p['post']['url'])
-                except Exception as e:
-                  print(f'failed to use news3k to get article: {e}')
-                  t = None
-                if t is not None:
-                  posttext += t
                 # add title/desc from lemmy api
                 print('lemmy fallback 1...')
                 t = add_embed(p['post'])
@@ -389,12 +371,12 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
                 else:
                   print('lemmy fallback 2...')
                   if 'body' in p['post']:
-                    posttext += shorten_text(p['post']['body'], rapidkey)
+                    posttext += shorten.shorten_text(p['post']['body'], rapidkey)
         elif p['post']['url_content_type'][:6] == 'video/':
           # embed video url
           posttext = posttext + f"![]({p['post']['url']})\n\n"
           if 'body' in p['post']:
-            posttext += shorten_text(p['post']['body'], rapidkey)
+            posttext += shorten.shorten_text(p['post']['body'], rapidkey)
       else:
         '''no content type'''
         t = add_embed(p['post'])
@@ -406,18 +388,18 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
           if t is not None:
             posttext += t
           if 'body' in p['post']:
-            posttext += shorten_text(p['post']['body'], rapidkey)
+            posttext += shorten.shorten_text(p['post']['body'], rapidkey)
     else:
       '''not url'''
       if 'body' in p['post']:
-        posttext += shorten_text(p['post']['body'], rapidkey)
+        posttext += shorten.shorten_text(p['post']['body'], rapidkey)
 
     posttext = posttext + f"Posted by [{p['author']['name']}]({p['author']['actor_id']})\n\n"
   
   posttext += "\n\n----\n\nThe main links are using lemmyverse.link which should redirect to the post on your own instance. If you have not used this before, you may need to go direct to https://lemmyverse.link/ and click on 'configure instance'.  Some apps will open posts correctly when using the direct link."
 
   if images_only is not True:
-    posttext += "\n\n️🤖 indicates a summary generated using AI - 🖋️ TLDR This, 🖊️ Pipfeed, 🖍 Deepseek.  It is possible that the summary does not accurately convey the meaning of the original article, refer to the source material if in any doubt."
+    posttext += "\n\n️🤖 indicates a summary generated using AI - 🖋️ TLDR This, 🖊️ news3k, 🖍 Deepseek.  It is possible that the summary does not accurately convey the meaning of the original article, refer to the source material if in any doubt."
 
   print(posttext)
 
