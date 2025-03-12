@@ -42,7 +42,7 @@ def article(url, rapidkey):
     t = f'![]({art.top_image})\n\n'
   if art.title is not None:
     t += f'*{art.title}*\n\n'
-  if art.summary is not None:
+  if (art.summary is not None) and (len(art.summary) > 0):
     t += f'{art.summary} 🖊️️🤖\n\n'
   elif art.text is not None:
     t += shorten.shorten_text(art.text, rapidkey)
