@@ -36,6 +36,7 @@ def article(url, rapidkey):
     return None
   art.parse()
   nltk.download('punkt')
+  nltk.download('punkt_tab')
   art.nlp()
   t = ''
   if art.top_image is not None:
