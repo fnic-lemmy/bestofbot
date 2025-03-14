@@ -2,9 +2,9 @@
 from pytube import YouTube
 import urllib.parse as urlparse
 from urllib.parse import parse_qs
+import shorten
 
-
-def get(url):
+def get(url, rapidkey):
   yt = None
 
   if (url[:17] != 'https://youtu.be/') and (url[:20] != 'https://youtube.com/') and (url[:24] != 'https://www.youtube.com/'):
@@ -18,12 +18,15 @@ def get(url):
     print({e})
     return None
 
-  t = f'![]({yt.thumbnail_url})\n\n'
-  try:
+  t = ''
+
+  if yt.thumbnail_url is not None:
+    t = f'![]({yt.thumbnail_url})\n\n'
+  if yt.title is not None:
     t += f'*{yt.title}*\n\n'
-  except:
-    ''' nothing to do '''
-
+  else:
+    print('no title')
+    return None
+  if yt.description is not None:
+    t += shorten.shorten_text(yt.description, rapidkey)
   return t
-
-
