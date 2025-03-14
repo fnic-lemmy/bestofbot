@@ -35,7 +35,6 @@ def article(url, rapidkey):
     print(f'unable to download article, {e}')
     return None
   art.parse()
-  nltk.download('punkt')
   nltk.download('punkt_tab')
   art.nlp()
   t = ''
