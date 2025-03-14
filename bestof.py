@@ -343,7 +343,11 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
         if p['post']['url_content_type'][:9] == 'text/html':
           # try youtube
           print('youtube...')
-          t = yt.get(p['post']['url'])
+          try:
+            t = yt.get(p['post']['url'])
+          except Exception as e:
+            print(f'yt error: {e}')
+            t = None
           if t is not None:
             posttext += t
           else:
