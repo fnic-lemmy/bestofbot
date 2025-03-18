@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from pytube import YouTube
+from pytubefix import YouTube
 import urllib.parse as urlparse
 from urllib.parse import parse_qs
 import shorten
