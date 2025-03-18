@@ -12,8 +12,13 @@ def get(url, rapidkey):
     if 'v' not in parse_qs(parsed.query):
       return None
 
+  proxy = {
+    "http": "socks5://18.135.211.182:3128",
+    "https": "socks5://18.135.211.182:3128"
+  }
+
   try:
-    yt = YouTube(url, 'WEB')
+    yt = YouTube(url, proxies=proxy)
   except Exception as e:
     print({e})
     return None
