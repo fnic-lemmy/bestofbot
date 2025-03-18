@@ -13,7 +13,7 @@ def get(url, rapidkey):
       return None
 
   try:
-    yt = YouTube(url)
+    yt = YouTube(url, 'WEB')
   except Exception as e:
     print({e})
     return None
