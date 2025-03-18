@@ -13,8 +13,8 @@ def get(url, rapidkey):
       return None
 
   proxy = {
-    "http": "socks5://18.135.211.182:3128",
-    "https": "socks5://18.135.211.182:3128"
+    "http": "socks5://99.80.11.54:80",
+    "https": "socks5://99.80.11.54:80"
   }
 
   try:
