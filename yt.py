@@ -6,6 +6,11 @@ import shorten
 import ssl
 
 def get(url, rapidkey):
+  proxy = {
+    "http": "socks5://99.80.11.54:80",
+    "https": "socks5://99.80.11.54:80"
+  }
+
   yt = None
 
   if (url[:17] != 'https://youtu.be/') and (url[:20] != 'https://youtube.com/') and (url[:24] != 'https://www.youtube.com/'):
@@ -21,7 +26,7 @@ def get(url, rapidkey):
     ssl._create_default_https_context = _create_unverified_https_context
 
   try:
-    yt = YouTube(url)
+    yt = YouTube(url, proxies=proxy)
   except Exception as e:
     print({e})
     return None
