@@ -3,6 +3,7 @@ from pytubefix import YouTube
 import urllib.parse as urlparse
 from urllib.parse import parse_qs
 import shorten
+import ssl
 
 def get(url, rapidkey):
   yt = None
@@ -12,13 +13,15 @@ def get(url, rapidkey):
     if 'v' not in parse_qs(parsed.query):
       return None
 
-  proxy = {
-    "http": "socks5://99.80.11.54:80",
-    "https": "socks5://99.80.11.54:80"
-  }
+  try:
+    _create_unverified_https_context = ssl._create_unverified_context
+  except AttributeError:
+    pass
+  else:
+    ssl._create_default_https_context = _create_unverified_https_context
 
   try:
-    yt = YouTube(url, proxies=proxy)
+    yt = YouTube(url)
   except Exception as e:
     print({e})
     return None

@@ -3,6 +3,7 @@ from newspaper import Article
 from newspaper import Config
 import shorten
 import nltk
+import ssl
 
 def article_image(url):
   config = Config()
@@ -35,6 +36,14 @@ def article(url, rapidkey):
     print(f'unable to download article, {e}')
     return None
   art.parse()
+
+  try:
+    _create_unverified_https_context = ssl._create_unverified_context
+  except AttributeError:
+    pass
+  else:
+    ssl._create_default_https_context = _create_unverified_https_context
+
   nltk.download('punkt_tab')
   art.nlp()
   t = ''
