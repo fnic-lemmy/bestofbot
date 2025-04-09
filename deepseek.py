@@ -3,9 +3,11 @@
 import requests
 
 def shorten(text, key, max_len):
-  url = "https://deepseek-v3.p.rapidapi.com/chat"
+  url = "https://deepseek-v31.p.rapidapi.com/"
 
-  payload = { "messages": [
+  payload = {
+        "model": "deepseek-v3",
+        "messages": [
 		{
 			"role": "user",
 			"content": f"Shorten the following text to {max_len} characters. Return only the shortened text without adding, interpreting, or modifying the meaning. Do not include explanations or notes. Text:\n{text}"
@@ -13,7 +15,7 @@ def shorten(text, key, max_len):
 	] }
   headers = {
 	"x-rapidapi-key": key,
-	"x-rapidapi-host": "deepseek-v3.p.rapidapi.com",
+	"x-rapidapi-host": "deepseek-v31.p.rapidapi.com",
 	"Content-Type": "application/json"
   }
 
