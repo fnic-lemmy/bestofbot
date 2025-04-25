@@ -405,6 +405,16 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
   if images_only is not True:
     posttext += "\n\n️🤖 indicates a summary generated using AI - 🖋️ TLDR This, 🖊️ news3k, 🖍 Deepseek.  It is possible that the summary does not accurately convey the meaning of the original article, refer to the source material if in any doubt."
 
+  # Add Connect multicommunity link
+  posttext += f'\n\n[Multicommunity: {cfg[8:]}](connect-multi://{cfg[8:]}/'
+  notfirst = False
+  for comm in communities:
+    if notfirst is True:
+      posttext += '+'
+    posttext += f'{comm}'
+    notfirst = True
+  posttext += ')'
+
   print(posttext)
 
   if nsfw is True:
