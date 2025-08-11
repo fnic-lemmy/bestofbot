@@ -19,15 +19,16 @@ MODPW = os.getenv("MODPW", 0)
 GHREPO = os.getenv("GHREPO", 0)
 GHTOKEN = os.getenv("GHTOKEN", 0)
 TLDRTHIS_APIKEY = os.getenv("TLDRTHIS_API", 0)
+OPENROUTERKEY = os.getenv("OPENROUTERKEY", 0)
 
-def main(user, pw, inst, comm, cfg, title, imgs, nsfw, moduser, modpw, ghrepo, ghtoken, tldr_api):
+def main(user, pw, inst, comm, cfg, title, imgs, nsfw, moduser, modpw, ghrepo, ghtoken, tldr_api, openrouterkey):
 
     io = False
 
     if imgs == 1:
       io = True
 
-    contents = bestof.run(user, pw, inst, comm, cfg, title, io, nsfw, moduser, modpw, tldr_api, ghtoken, ghrepo)
+    contents = bestof.run(user, pw, inst, comm, cfg, title, io, nsfw, moduser, modpw, tldr_api, ghtoken, ghrepo, openrouterkey)
 
     return "bestofbot"
 
@@ -35,7 +36,7 @@ def main(user, pw, inst, comm, cfg, title, imgs, nsfw, moduser, modpw, ghrepo, g
 if __name__ == "__main__":
     try:
         main(BOTUSER, BOTPW, BOTINSTANCE, POSTCOMMUNITY, COMMUNITIES, TITLE,
-             int(IMAGESONLY), int(NSFW), MODUSER, MODPW, GHREPO, GHTOKEN, TLDRTHIS_APIKEY)
+             int(IMAGESONLY), int(NSFW), MODUSER, MODPW, GHREPO, GHTOKEN, TLDRTHIS_APIKEY, OPENROUTERKEY)
     except Exception as err:
         message = (
             f"Task #{TASK_INDEX}, " + f"Attempt #{TASK_ATTEMPT} failed: {str(err)}"

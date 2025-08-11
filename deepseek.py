@@ -3,10 +3,10 @@
 import requests
 
 def shorten(text, key, max_len):
-  url = "https://deepseek-v31.p.rapidapi.com/"
+  url = "https://openrouter.ai/api/v1/chat/completions"
 
   payload = {
-        "model": "deepseek-v3",
+        "model": "tngtech/deepseek-r1t2-chimera:free",
         "messages": [
 		{
 			"role": "user",
@@ -14,8 +14,10 @@ def shorten(text, key, max_len):
 		}
 	] }
   headers = {
-	"x-rapidapi-key": key,
-	"x-rapidapi-host": "deepseek-v31.p.rapidapi.com",
+	"Authorization": f"Bearer {key}",
+	"Content-Type": "application/json",
+	"HTTP-Referer": "https://github.com/fnic-lemmy/bestofbot",
+	"X-Title": "BestOfBot - Lemmy Bot",
 	"Content-Type": "application/json"
   }
 

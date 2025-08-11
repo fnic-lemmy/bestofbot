@@ -86,7 +86,7 @@ def gen_shield(c):
   return f'![{serv}](https://img.shields.io/{serv}/{cenc}?style=flat&label=Subs&color=pink)'
 
 
-def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, moduser, modpw, rapidkey, ghtoken, ghrepo):
+def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, moduser, modpw, rapidkey, ghtoken, ghrepo, openrouterkey):
   topposts = 0
   toppost = []
 
@@ -336,7 +336,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
       posttext = posttext + f"![]({p['post']['url']})\n\n"
       if images_only is not True:
         if 'body' in p['post']:
-          posttext += shorten.shorten_text(p['post']['body'], rapidkey)
+          posttext += shorten.shorten_text(p['post']['body'], openrouterkey)
     elif "url" in p['post']:
       print(f"* {p['post']['name']} - {p['post']['url']}")
       if "url_content_type" in p['post']:
@@ -375,12 +375,12 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
                 else:
                   print('lemmy fallback 2...')
                   if 'body' in p['post']:
-                    posttext += shorten.shorten_text(p['post']['body'], rapidkey)
+                    posttext += shorten.shorten_text(p['post']['body'], openrouterkey)
         elif p['post']['url_content_type'][:6] == 'video/':
           # embed video url
           posttext = posttext + f"![]({p['post']['url']})\n\n"
           if 'body' in p['post']:
-            posttext += shorten.shorten_text(p['post']['body'], rapidkey)
+            posttext += shorten.shorten_text(p['post']['body'], openrouterkey)
       else:
         '''no content type'''
         t = add_embed(p['post'])
@@ -392,11 +392,11 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
           if t is not None:
             posttext += t
           if 'body' in p['post']:
-            posttext += shorten.shorten_text(p['post']['body'], rapidkey)
+            posttext += shorten.shorten_text(p['post']['body'], openrouterkey)
     else:
       '''not url'''
       if 'body' in p['post']:
-        posttext += shorten.shorten_text(p['post']['body'], rapidkey)
+        posttext += shorten.shorten_text(p['post']['body'], openrouterkey)
 
     posttext = posttext + f"Posted by [{p['author']['name']}]({p['author']['actor_id']})\n\n"
   
