@@ -1,19 +1,18 @@
 [
-  "adventuregames@lemm.ee",
   "jrpg@lemmy.zip",
   "jrpg@lemmy.world",
+  "tycoon@lemmy.world",
   "speedrun@sh.itjust.works",
   "strategy@lemmy.world",
   "strategygames@sopuli.xyz",
-  "tycoon@lemmy.world",
-  "fgc@lemmy.world",
-  "interactive_fiction@lemmy.ml",
   "crpg@lemmy.world",
+  "fgc@lemmy.world",
   "rts@reddthat.com",
   "realtimestrategy@lemmy.world",
+  "interactive_fiction@lemmy.ml",
   "turnbasedstrategy@lemmy.world",
+  "lifesimulation@lemmy.world",
   "gamebooks@feddit.uk",
   "arpg@lemmy.ml",
-  "trucksim@lemmy.world",
-  "lifesimulation@lemmy.world"
+  "trucksim@lemmy.world"
 ]

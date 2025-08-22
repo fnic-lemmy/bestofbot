@@ -1,8 +1,8 @@
 [
   "music@lemmy.world",
   "music@lemmy.ml",
-  "jukebox@sh.itjust.works",
   "music@lemmy.sdf.org",
+  "jukebox@sh.itjust.works",
   "music@midwest.social",
   "anymusic@lemmy.world",
   "music@board.minimally.online",
@@ -11,7 +11,7 @@
   "connectasong@lemmy.world",
   "music@slrpnk.net",
   "metalvinyl@lemmy.world",
+  "leftymusic@lemmy.world",
   "ukmusic@feddit.uk",
-  "britishmusic@lemmy.world",
-  "leftymusic@lemmy.world"
+  "britishmusic@lemmy.world"
 ]
