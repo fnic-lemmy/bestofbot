@@ -333,7 +333,11 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
     #  print(f'{p["post"]["name"]} - {p["post"]["url_content_type"]}')
 
     if(images_only is True) or ("url" in p['post'] and (("url_content_type" not in p['post']) or (("url_content_type" in p['post']) and (p['post']['url_content_type'][:5] == "image")))):
-      posttext = posttext + f"![]({p['post']['url']})\n\n"
+      if "alt_text" in p['post']:
+        alt = p['post']['alt_text']
+      else:
+        alt = ""
+      posttext = posttext + f"![{alt}]({p['post']['url']})\n\n"
       if images_only is not True:
         if 'body' in p['post']:
           posttext += shorten.shorten_text(p['post']['body'], openrouterkey)
