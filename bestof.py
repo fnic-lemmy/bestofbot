@@ -435,8 +435,12 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
 
   if community_id is not None:
     '''post'''
+    if "alt_text" in p['post']:
+      alt = p['post']['alt_text']
+    else:
+      alt = None
     try:
-      post = lemmy.post.create(community_id, post_title, url=toppost[0]['post']['url'], body=posttext, nsfw=nsfw)
+      post = lemmy.post.create(community_id, post_title, url=toppost[0]['post']['url'], body=posttext, nsfw=nsfw, alt_text = alt)
     except Exception as e:
       print(f'cannot post, exception = {e}\n')
       return posttext
