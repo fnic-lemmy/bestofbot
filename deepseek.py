@@ -10,7 +10,7 @@ def shorten(text, key, max_len):
         "messages": [
 		{
 			"role": "user",
-			"content": f"Shorten the following text to {max_len} characters. Return only the shortened text without adding, interpreting, or modifying the meaning. Do not include explanations or notes. Text:\n{text}"
+			"content": f"Shorten the following text to {max_len} characters. Return only the shortened text without adding, interpreting, or modifying the meaning. Do not include explanations or notes. If the text is not in English, please also translate. Text:\n{text}"
 		}
 	] }
   headers = {
