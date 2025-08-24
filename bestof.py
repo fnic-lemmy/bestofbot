@@ -9,6 +9,7 @@ import tldr
 import yt
 import news
 import deepseek
+import openrouter
 import requests
 import urllib.parse
 import datetime
@@ -336,7 +337,7 @@ def run(user, pw, instance, postcomm, cfg, post_title, images_only, nsfw_b, modu
       if "alt_text" in p['post']:
         alt = p['post']['alt_text']
       else:
-        alt = ""
+        alt = openrouter.desc_img(p['post']['url'], openrouterkey)
       posttext = posttext + f"![{alt}]({p['post']['url']})\n\n"
       if images_only is not True:
         if 'body' in p['post']:

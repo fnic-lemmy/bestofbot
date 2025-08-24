@@ -25,6 +25,9 @@ def shorten(text, key, max_len):
 
   r = response.json()
   print(r)
-  return r['choices'][0]['message']['content']
 
+  try:
+    return r['choices'][0]['message']['content']
+  except:
+    return None
 
