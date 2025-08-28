@@ -6,7 +6,7 @@ def shorten(text, key, max_len):
   url = "https://openrouter.ai/api/v1/chat/completions"
 
   payload = {
-        "model": "tngtech/deepseek-r1t2-chimera:free",
+        "model": "deepseek/deepseek-chat-v3.1:free",
         "messages": [
 		{
 			"role": "user",
