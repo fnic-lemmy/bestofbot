@@ -6,11 +6,11 @@ def shorten(text, key, max_len):
   url = "https://openrouter.ai/api/v1/chat/completions"
 
   payload = {
-        "model": "deepseek/deepseek-chat-v3.1:free",
+        "model": "@preset/bestofbot",
         "messages": [
 		{
 			"role": "user",
-			"content": f"Shorten the following text to {max_len} characters. Return only the shortened text without adding, interpreting, or modifying the meaning. Do not include explanations or notes. If the text is not in English, please also translate. Text:\n{text}"
+			"content": f"Shorten the following text to {max_len} characters. Text:\n{text}"
 		}
 	] }
   headers = {
